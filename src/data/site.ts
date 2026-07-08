@@ -3,8 +3,7 @@
 
 export const site = {
   calendlyUrl: "https://calendly.com/contacto-tatux3d/tatux-3d-diagnostico-de-produccion",
-  // TODO: final name for the appointment offer — client is still deciding.
-  appointmentName: "Diagnóstico 3D Gratuito",
+  appointmentName: "Diagnóstico Producción 3D",
   // TODO: replace with the real n8n webhook URL once it's set up. The form
   // POSTs the registration here before revealing the Calendly link.
   registrationWebhookUrl: "https://REPLACE-WITH-N8N-WEBHOOK-URL",
