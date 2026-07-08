@@ -2,10 +2,12 @@
 // Update these once real values are available.
 
 export const site = {
-  // TODO: replace with the real Calendly scheduling link once created.
-  calendlyUrl: "https://calendly.com/tatux3d/cita",
+  calendlyUrl: "https://calendly.com/contacto-tatux3d/tatux-3d-diagnostico-de-produccion",
   // TODO: final name for the appointment offer — client is still deciding.
   appointmentName: "Diagnóstico 3D Gratuito",
+  // TODO: replace with the real n8n webhook URL once it's set up. The form
+  // POSTs the registration here before revealing the Calendly link.
+  registrationWebhookUrl: "https://REPLACE-WITH-N8N-WEBHOOK-URL",
   whatsapp: "https://wa.me/5490000000000", // TODO: real WhatsApp number
   email: "contacto@tatux3d.com", // TODO: confirm real inbox
   social: {
