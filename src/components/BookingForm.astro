@@ -4,12 +4,19 @@ import { site } from "../data/site";
 
 <section id="agendar" class="section booking">
   <div class="container booking__inner">
-    <p class="eyebrow booking__eyebrow">Respuesta en menos de 24 horas</p>
+    <p class="eyebrow booking__eyebrow">Solo 10 diagnósticos gratuitos por mes</p>
     <h2 class="booking__title">Agendá tu {site.appointmentName}</h2>
     <p class="booking__subtitle">
-      Contanos quién sos y coordinamos una videollamada para analizar tu proyecto, resolver dudas y definir la mejor
-      estrategia de producción para tu negocio.
+      ¿Cuánto te está costando hoy fabricar con moldes caros, stock inmovilizado o proveedores que no cumplen los
+      tiempos? En 20 minutos identificamos qué te está frenando y te armamos un plan de producción a medida — sin
+      costo y sin compromiso.
     </p>
+
+    <ul class="booking__benefits">
+      <li><strong>Vas a descubrir</strong> dónde estás perdiendo tiempo o plata en tu proceso actual.</li>
+      <li><strong>Vas a recibir</strong> una recomendación concreta de materiales, escala y tiempos para tu caso.</li>
+      <li><strong>Vas a salir</strong> con el siguiente paso claro, sin ningún compromiso de compra.</li>
+    </ul>
 
     <form id="booking-form" class="booking__form" novalidate>
       <div class="booking__field">
@@ -26,7 +33,7 @@ import { site } from "../data/site";
       </div>
 
       <button type="submit" class="btn btn-solid booking__submit">
-        <span class="booking__submit-label">Continuar</span>
+        <span class="booking__submit-label">Quiero mi diagnóstico gratis</span>
       </button>
     </form>
 
@@ -38,7 +45,7 @@ import { site } from "../data/site";
       rel="noopener noreferrer"
       hidden
     >
-      Elegí el horario de tu cita en Calendly
+      Elegí el horario de tu diagnóstico en Calendly
     </a>
 
     <p id="booking-error" class="booking__error" hidden>Completá tu nombre y WhatsApp para continuar.</p>
@@ -120,7 +127,28 @@ import { site } from "../data/site";
 
   .booking__subtitle {
     opacity: 0.9;
-    margin-bottom: 16px;
+  }
+
+  .booking__benefits {
+    list-style: none;
+    margin: 8px 0 16px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    width: 100%;
+  }
+
+  .booking__benefits li {
+    background: rgba(0, 14, 88, 0.35);
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-size: 0.92rem;
+  }
+
+  .booking__benefits strong {
+    color: var(--color-green-neon);
   }
 
   .booking__form {
