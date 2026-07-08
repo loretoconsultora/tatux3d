@@ -18,7 +18,7 @@ const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMe
       </p>
 
       <div class="hero__ctas">
-        <a href="#hero-booking" class="btn btn-solid hero__cta">Quiero mi diagnóstico gratis</a>
+        <button type="button" class="btn btn-solid hero__cta" data-open-modal="booking">Quiero mi diagnóstico gratis</button>
         <a href={whatsappHref} target="_blank" rel="noopener noreferrer" class="btn btn-outline hero__whatsapp">
           <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor" aria-hidden="true">
             <path
