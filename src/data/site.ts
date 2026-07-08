@@ -10,8 +10,8 @@ export const site = {
   whatsapp: "https://wa.me/5491136801900",
   whatsappMessage: "Hola! Quiero hablar con un asesor de TATUX 3D sobre mi proyecto.",
   email: "contacto@tatux3d.com", // TODO: confirm real inbox
-  introVideoId: "3pkS0lQBVqk",
-  introVideoUrl: "https://youtube.com/shorts/3pkS0lQBVqk",
+  introVideoId: "F18dNYVsYVQ",
+  introVideoUrl: "https://youtu.be/F18dNYVsYVQ",
   projectOptions: [
     { value: "prototipo", label: "Prototipo o pieza única" },
     { value: "serie", label: "Producción en serie" },
