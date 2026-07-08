@@ -153,6 +153,17 @@ h1, h2 {
   box-shadow: 0 10px 30px rgba(3, 42, 242, 0.35);
 }
 
+.btn-outline {
+  background: transparent;
+  color: var(--color-white-warm);
+  border: 2px solid rgba(237, 255, 255, 0.5);
+}
+
+.btn-outline:hover {
+  background: rgba(237, 255, 255, 0.1);
+  border-color: var(--color-white-warm);
+}
+
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;

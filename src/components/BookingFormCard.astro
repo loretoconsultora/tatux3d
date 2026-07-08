@@ -1,0 +1,185 @@
+---
+import { site } from "../data/site";
+
+interface Props {
+  formId: string;
+  heading?: string;
+}
+
+const { formId, heading = "Da el primer paso hoy" } = Astro.props;
+const errorId = `${formId}-error`;
+const calendlyId = `${formId}-calendly`;
+---
+
+<div class="booking-card">
+  <p class="eyebrow booking-card__eyebrow">Cupos limitados: 10 diagnósticos gratis por mes</p>
+  <h3 class="booking-card__title">{heading}</h3>
+
+  <form id={formId} class="booking-card__form" novalidate>
+    <div class="booking-card__field">
+      <label for={`${formId}-name`}>Nombre completo</label>
+      <input id={`${formId}-name`} name="name" type="text" required autocomplete="name" placeholder="Tu nombre" />
+    </div>
+    <div class="booking-card__field">
+      <label for={`${formId}-phone`}>WhatsApp</label>
+      <input id={`${formId}-phone`} name="phone" type="tel" required autocomplete="tel" placeholder="+54 9 ..." />
+    </div>
+    <div class="booking-card__field">
+      <label for={`${formId}-project`}>¿Qué necesitás producir?</label>
+      <select id={`${formId}-project`} name="project" required>
+        <option value="" selected disabled>Seleccioná una opción</option>
+        {site.projectOptions.map((option) => <option value={option.value}>{option.label}</option>)}
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-solid booking-card__submit">
+      <span class="booking-card__submit-label">Quiero mi diagnóstico gratis</span>
+    </button>
+  </form>
+
+  <a
+    id={calendlyId}
+    class="btn btn-primary booking-card__calendly"
+    href={site.calendlyUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    hidden
+  >
+    Elegí el horario de tu diagnóstico
+  </a>
+
+  <p id={errorId} class="booking-card__error" hidden>Completá todos los campos para continuar.</p>
+
+  <p class="booking-card__footnote">Te contactamos en menos de 24 horas.</p>
+</div>
+
+<script
+  define:vars={{
+    formId,
+    errorId,
+    calendlyId,
+    calendlyUrl: site.calendlyUrl,
+    registrationWebhookUrl: site.registrationWebhookUrl,
+  }}
+>
+  const form = document.getElementById(formId);
+  const submitButton = form?.querySelector("button[type=submit]");
+  const submitLabel = form?.querySelector(".booking-card__submit-label");
+  const calendlyLink = document.getElementById(calendlyId);
+  const errorMessage = document.getElementById(errorId);
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const data = new FormData(form);
+    const name = String(data.get("name") || "").trim();
+    const phone = String(data.get("phone") || "").trim();
+    const project = String(data.get("project") || "").trim();
+
+    if (!name || !phone || !project) {
+      errorMessage.hidden = false;
+      return;
+    }
+
+    errorMessage.hidden = true;
+    submitButton.disabled = true;
+    submitLabel.textContent = "Registrando...";
+
+    // Registers the lead in the n8n webhook (which writes to the shared
+    // spreadsheet and sends the email notification) before unlocking
+    // Calendly. If the webhook is unreachable we still let the user book,
+    // so a n8n outage never blocks someone from scheduling a call.
+    try {
+      await fetch(registrationWebhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, project, source: "tatux3d.com" }),
+      });
+    } catch (err) {
+      console.error("No se pudo registrar el lead en el webhook:", err);
+    }
+
+    const url = new URL(calendlyUrl);
+    url.searchParams.set("name", name);
+
+    calendlyLink.href = url.toString();
+    calendlyLink.hidden = false;
+    form.hidden = true;
+    calendlyLink.focus();
+  });
+</script>
+
+<style>
+  .booking-card {
+    background: var(--color-white-warm);
+    color: var(--color-text);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    text-align: left;
+    box-shadow: 0 24px 60px rgba(0, 14, 88, 0.25);
+  }
+
+  .booking-card__eyebrow {
+    color: var(--color-blue-electric);
+  }
+
+  .booking-card__title {
+    font-size: 1.4rem;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    color: var(--color-blue-deep);
+  }
+
+  .booking-card__form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .booking-card__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .booking-card__field label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-blue-deep);
+  }
+
+  .booking-card__field input,
+  .booking-card__field select {
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(3, 42, 242, 0.18);
+    font-size: 1rem;
+    font-family: inherit;
+    background: #fff;
+    color: var(--color-text);
+  }
+
+  .booking-card__submit {
+    margin-top: 4px;
+    width: 100%;
+  }
+
+  .booking-card__calendly {
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .booking-card__error {
+    color: #d1350f;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-top: 8px;
+  }
+
+  .booking-card__footnote {
+    margin-top: 14px;
+    font-size: 0.8rem;
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+</style>

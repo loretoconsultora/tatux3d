@@ -8,7 +8,16 @@ export const site = {
   // POSTs the registration here before revealing the Calendly link.
   registrationWebhookUrl: "https://REPLACE-WITH-N8N-WEBHOOK-URL",
   whatsapp: "https://wa.me/5490000000000", // TODO: real WhatsApp number
+  whatsappMessage: "Hola! Quiero hablar con un asesor de TATUX 3D sobre mi proyecto.",
   email: "contacto@tatux3d.com", // TODO: confirm real inbox
+  // TODO: swap for the real YouTube URL once the founder's intro video is uploaded.
+  introVideoUrl: "https://www.youtube.com/@tatux3d",
+  projectOptions: [
+    { value: "prototipo", label: "Prototipo o pieza única" },
+    { value: "serie", label: "Producción en serie" },
+    { value: "repuesto", label: "Repuesto o pieza descontinuada" },
+    { value: "no-se", label: "Todavía no lo sé" },
+  ],
   social: {
     facebook: "#",
     instagram: "#",

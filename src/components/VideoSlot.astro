@@ -1,0 +1,56 @@
+---
+import { site } from "../data/site";
+
+// TODO: once the founder's intro video is uploaded, swap href for the real
+// YouTube URL and, ideally, replace the placeholder background with the
+// video's real thumbnail (https://img.youtube.com/vi/<id>/maxresdefault.jpg).
+---
+
+<a href={site.introVideoUrl} target="_blank" rel="noopener noreferrer" class="video-slot" aria-label="Ver la presentación de TATUX 3D en YouTube">
+  <div class="video-slot__play">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
+      <path d="M8 5v14l11-7z"></path>
+    </svg>
+  </div>
+  <p class="video-slot__label">Conocé a TATUX 3D — mirá la presentación</p>
+</a>
+
+<style>
+  .video-slot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(160deg, var(--color-blue-deep) 0%, var(--color-blue-electric) 100%);
+    text-decoration: none;
+    color: var(--color-white-warm);
+    overflow: hidden;
+  }
+
+  .video-slot__play {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--color-white-warm);
+    color: var(--color-blue-electric);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
+  }
+
+  .video-slot:hover .video-slot__play {
+    transform: scale(1.08);
+  }
+
+  .video-slot__label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding-inline: 20px;
+    text-align: center;
+  }
+</style>
