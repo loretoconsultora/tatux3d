@@ -1,0 +1,77 @@
+---
+const items = [
+  {
+    title: "Prototipo inicial sin costo",
+    detail: "En menos de 24 horas",
+  },
+  {
+    title: "Producción en tiempo récord",
+    detail: "Asegurando la más alta calidad",
+  },
+  {
+    title: "Producción desde $30.000 AR",
+    detail: "Escalás sin límites",
+  },
+  {
+    title: "Envíos a todo el país",
+    detail: "Tu pedido hasta tu negocio",
+  },
+  {
+    title: "Más de 100 empresas argentinas",
+    detail: "Ya confiaron en nosotros",
+  },
+];
+---
+
+<section class="section why">
+  <div class="container">
+    <h2 class="why__title">¿Por qué las empresas líderes de la industria eligen TATUX 3D?</h2>
+    <div class="why__grid">
+      {
+        items.map((item) => (
+          <div class="why__card">
+            <p class="why__card-title">{item.title}</p>
+            <p class="why__card-detail">{item.detail}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .why {
+    background: var(--color-blue-electric);
+    color: var(--color-white-warm);
+  }
+
+  .why__title {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 700;
+    max-width: 720px;
+    margin-bottom: 48px;
+  }
+
+  .why__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .why__card {
+    background: rgba(0, 14, 88, 0.35);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+  }
+
+  .why__card-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .why__card-detail {
+    opacity: 0.85;
+    font-size: 0.95rem;
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+const items = [
+  { title: "Industrias", detail: "Elimina el costo de moldes y reduce la necesidad de stock." },
+  { title: "Arquitectura", detail: "Transformá planos en maquetas tangibles listas para presentar." },
+  { title: "Salud & Odontología", detail: "Modelos precisos y a medida para tratamientos más efectivos." },
+  { title: "Repuestos", detail: "Devuelve vida a piezas que ya no se consiguen." },
+  { title: "Prototipos", detail: "De la idea a la mano en horas." },
+];
+---
+
+<section id="industrias" class="section industries">
+  <div class="container">
+    <h2 class="industries__title">Soluciones 3D a la medida de tu industria</h2>
+    <div class="industries__grid">
+      {
+        items.map((item) => (
+          <div class="industries__card">
+            <p class="industries__card-title">{item.title}</p>
+            <p class="industries__card-detail">{item.detail}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .industries__title {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--color-blue-deep);
+    margin-bottom: 40px;
+    max-width: 720px;
+  }
+
+  .industries__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .industries__card {
+    background: var(--color-blue-deep);
+    color: var(--color-white-warm);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .industries__card-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+
+  .industries__card-detail {
+    opacity: 0.85;
+    font-size: 0.9rem;
+  }
+</style>

@@ -1,0 +1,101 @@
+---
+const faqs = [
+  {
+    q: "¿Tiempo de producción?",
+    a: "El prototipo inicial lo entregamos en menos de 24 horas. Los tiempos de producción en serie dependen del volumen y la complejidad de la pieza; lo definimos juntos en tu cita.",
+  },
+  {
+    q: "¿Volumen mínimo?",
+    a: "Trabajamos tanto con piezas únicas como con producción en serie. Contanos tu proyecto en la cita y te asesoramos sobre la mejor escala para tu negocio.",
+  },
+  {
+    q: "¿Necesito diseño listo?",
+    a: "No es necesario. Si ya tenés un modelo 3D lo recibimos directamente; si no, nuestro equipo puede diseñarlo desde cero junto a vos.",
+  },
+  {
+    q: "¿Qué materiales usan?",
+    a: "Imprimimos en ABS y Nylon, con piezas multicolor de hasta 4 colores y gran escala (hasta 1 metro de altura).",
+  },
+  {
+    q: "¿Hacen envíos?",
+    a: "Sí, enviamos a todo el país.",
+  },
+];
+---
+
+<section id="preguntas" class="section faq">
+  <div class="container faq__inner">
+    <h2 class="faq__title">Preguntas frecuentes</h2>
+    <div class="faq__list">
+      {
+        faqs.map((item) => (
+          <details class="faq__item">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    background: var(--color-blue-electric);
+    color: var(--color-white-warm);
+  }
+
+  .faq__inner {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .faq__title {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .faq__list {
+    background: var(--color-white-warm);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid rgba(3, 42, 242, 0.12);
+    color: var(--color-text);
+    padding: 20px 24px;
+  }
+
+  .faq__item:last-child {
+    border-bottom: none;
+  }
+
+  .faq__item summary {
+    cursor: pointer;
+    font-weight: 700;
+    list-style: none;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__item summary::after {
+    content: "\2304";
+    float: right;
+    color: var(--color-blue-electric);
+  }
+
+  .faq__item[open] summary::after {
+    content: "\2303";
+  }
+
+  .faq__item p {
+    margin-top: 12px;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+</style>

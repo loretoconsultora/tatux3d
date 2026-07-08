@@ -1,0 +1,151 @@
+---
+import { site } from "../data/site";
+---
+
+<section id="agendar" class="section booking">
+  <div class="container booking__inner">
+    <p class="eyebrow booking__eyebrow">Respuesta en menos de 24 horas</p>
+    <h2 class="booking__title">Agendá tu {site.appointmentName}</h2>
+    <p class="booking__subtitle">
+      Contanos quién sos y coordinamos una videollamada para analizar tu proyecto, resolver dudas y definir la mejor
+      estrategia de producción para tu negocio.
+    </p>
+
+    <form id="booking-form" class="booking__form" novalidate>
+      <div class="booking__field">
+        <label for="name">Nombre</label>
+        <input id="name" name="name" type="text" required autocomplete="name" placeholder="Tu nombre" />
+      </div>
+      <div class="booking__field">
+        <label for="phone">WhatsApp</label>
+        <input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="+54 9 ..." />
+      </div>
+      <div class="booking__field">
+        <label for="email">Email (opcional)</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+
+      <button type="submit" class="btn btn-solid booking__submit">Continuar</button>
+    </form>
+
+    <a
+      id="calendly-link"
+      class="btn btn-primary booking__calendly"
+      href={site.calendlyUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      hidden
+    >
+      Elegí el horario de tu cita en Calendly
+    </a>
+
+    <p id="booking-error" class="booking__error" hidden>Completá tu nombre y WhatsApp para continuar.</p>
+  </div>
+</section>
+
+<script define:vars={{ calendlyUrl: site.calendlyUrl }}>
+  const form = document.getElementById("booking-form");
+  const calendlyLink = document.getElementById("calendly-link");
+  const errorMessage = document.getElementById("booking-error");
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const data = new FormData(form);
+    const name = String(data.get("name") || "").trim();
+    const phone = String(data.get("phone") || "").trim();
+    const email = String(data.get("email") || "").trim();
+
+    if (!name || !phone) {
+      errorMessage.hidden = false;
+      return;
+    }
+
+    errorMessage.hidden = true;
+
+    // TODO: once we confirm where registrations should be stored (email
+    // notification, spreadsheet, CRM), send { name, phone, email } there
+    // before revealing the Calendly link.
+
+    const url = new URL(calendlyUrl);
+    url.searchParams.set("name", name);
+    if (email) url.searchParams.set("email", email);
+
+    calendlyLink.href = url.toString();
+    calendlyLink.hidden = false;
+    form.hidden = true;
+    calendlyLink.focus();
+  });
+</script>
+
+<style>
+  .booking {
+    background: linear-gradient(160deg, var(--color-blue-electric) 0%, var(--color-blue-deep) 100%);
+    color: var(--color-white-warm);
+  }
+
+  .booking__inner {
+    max-width: 560px;
+    margin-inline: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .booking__eyebrow {
+    color: var(--color-green-neon);
+  }
+
+  .booking__title {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+  }
+
+  .booking__subtitle {
+    opacity: 0.9;
+    margin-bottom: 16px;
+  }
+
+  .booking__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .booking__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .booking__field label {
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .booking__field input {
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+    font-family: inherit;
+  }
+
+  .booking__submit {
+    margin-top: 8px;
+  }
+
+  .booking__calendly {
+    margin-top: 8px;
+  }
+
+  .booking__error {
+    color: var(--color-orange);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+import { site } from "../data/site";
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="eyebrow footer__eyebrow">Respuesta y producción en tiempo récord</p>
+    <h2 class="footer__title">Agendá tu cita en menos de 24 horas</h2>
+    <p class="footer__subtitle">Escribinos y coordinemos una llamada para tu proyecto.</p>
+    <a href="#agendar" class="btn btn-primary">Agendar ahora</a>
+
+    <p class="footer__copyright">© {new Date().getFullYear()} TATUX 3D - Todos los derechos reservados.</p>
+
+    <div class="footer__social">
+      <a href={site.social.facebook} aria-label="Facebook">FB</a>
+      <a href={site.social.instagram} aria-label="Instagram">IG</a>
+      <a href={site.social.linkedin} aria-label="LinkedIn">IN</a>
+      <a href={`mailto:${site.email}`} aria-label="Email">@</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: linear-gradient(160deg, var(--color-blue-electric) 0%, var(--color-blue-deep) 100%);
+    color: var(--color-white-warm);
+    padding-block: 88px;
+  }
+
+  .footer__inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer__eyebrow {
+    color: var(--color-green-neon);
+  }
+
+  .footer__title {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 700;
+  }
+
+  .footer__subtitle {
+    opacity: 0.9;
+    margin-bottom: 8px;
+  }
+
+  .footer__copyright {
+    margin-top: 48px;
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+
+  .footer__social {
+    display: flex;
+    gap: 16px;
+  }
+
+  .footer__social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(237, 255, 255, 0.12);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+</style>

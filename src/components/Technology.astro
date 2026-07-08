@@ -1,0 +1,65 @@
+---
+const items = [
+  { title: "Multicolor", detail: "Piezas de hasta 4 colores." },
+  { title: "Materiales técnicos", detail: "Imprimimos en ABS y Nylon." },
+  { title: "Gran escala", detail: "Piezas de hasta 1 metro de altura." },
+  { title: "Producción en serie", detail: "Contamos con más de 30 impresoras 3D." },
+];
+---
+
+<section id="tecnologia" class="section tech">
+  <div class="container">
+    <p class="eyebrow tech__eyebrow">Contamos con la última tecnología en impresoras 3D</p>
+    <h2 class="tech__title">Tecnología de impresión 3D que potencia tu negocio</h2>
+    <div class="tech__grid">
+      {
+        items.map((item) => (
+          <div class="tech__card">
+            <p class="tech__card-title">{item.title}</p>
+            <p class="tech__card-detail">{item.detail}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech__eyebrow {
+    color: var(--color-blue-electric);
+    margin-bottom: 8px;
+  }
+
+  .tech__title {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--color-blue-deep);
+    margin-bottom: 40px;
+    max-width: 720px;
+  }
+
+  .tech__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .tech__card {
+    background: var(--color-blue-deep);
+    color: var(--color-white-warm);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    min-height: 140px;
+  }
+
+  .tech__card-title {
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+
+  .tech__card-detail {
+    opacity: 0.85;
+    font-size: 0.95rem;
+  }
+</style>
