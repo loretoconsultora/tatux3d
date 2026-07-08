@@ -14,7 +14,7 @@ const items = [
     <div class="industries__grid">
       {
         items.map((item) => (
-          <div class="industries__card">
+          <div class="card-soft industries__card">
             <p class="industries__card-title">{item.title}</p>
             <p class="industries__card-detail">{item.detail}</p>
           </div>
@@ -25,6 +25,10 @@ const items = [
 </section>
 
 <style>
+  .industries {
+    background: var(--color-bg-soft);
+  }
+
   .industries__title {
     font-size: clamp(1.6rem, 3vw, 2.25rem);
     color: var(--color-blue-deep);
@@ -39,21 +43,26 @@ const items = [
   }
 
   .industries__card {
-    background: var(--color-blue-deep);
-    color: var(--color-white-warm);
     border-radius: var(--radius-lg);
     padding: 28px 24px;
     text-align: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .industries__card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
   }
 
   .industries__card-title {
     font-weight: 700;
     font-size: 1.05rem;
     margin-bottom: 8px;
+    color: var(--color-blue-deep);
   }
 
   .industries__card-detail {
-    opacity: 0.85;
+    color: var(--color-text-muted);
     font-size: 0.9rem;
   }
 </style>

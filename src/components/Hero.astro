@@ -6,11 +6,11 @@ import BookingFormCard from "./BookingFormCard.astro";
 const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMessage)}`;
 ---
 
-<section id="top" class="hero">
+<section id="top" class="hero aura-blue-mint">
   <div class="container hero__grid">
     <div class="hero__content">
       <p class="hero__badge">Tu aliado en producción 3D</p>
-      <h1 class="hero__title">No buscamos ser tu proveedor. Buscamos crecer con tu negocio.</h1>
+      <h1 class="hero__title">No buscamos ser tu proveedor. <span>Buscamos crecer con tu negocio.</span></h1>
       <p class="hero__subtitle">
         En TATUX 3D nos metemos en tu proceso como un socio más: co-diseñamos piezas, escalamos la producción con vos
         y resolvemos lo que a otros proveedores les queda grande — en serie, multicolor, a gran escala y con
@@ -18,7 +18,7 @@ const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMe
       </p>
 
       <div class="hero__ctas">
-        <a href="#hero-booking" class="btn btn-primary hero__cta">Quiero mi diagnóstico gratis</a>
+        <a href="#hero-booking" class="btn btn-solid hero__cta">Quiero mi diagnóstico gratis</a>
         <a href={whatsappHref} target="_blank" rel="noopener noreferrer" class="btn btn-outline hero__whatsapp">
           <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor" aria-hidden="true">
             <path
@@ -43,9 +43,7 @@ const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMe
 
 <style>
   .hero {
-    background: linear-gradient(160deg, var(--color-blue-electric) 0%, var(--color-blue-deep) 100%);
-    color: var(--color-white-warm);
-    padding-block: 64px;
+    padding-block: 72px;
   }
 
   .hero__grid {
@@ -64,23 +62,29 @@ const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMe
 
   .hero__badge {
     display: inline-block;
-    border: 1px solid rgba(237, 255, 255, 0.4);
+    background: rgba(3, 42, 242, 0.08);
+    border: 1px solid rgba(3, 42, 242, 0.16);
     border-radius: var(--radius-full);
     padding: 8px 18px;
     font-size: 0.85rem;
     font-weight: 700;
-    color: var(--color-green-neon);
+    color: var(--color-blue-electric);
   }
 
   .hero__title {
     font-size: clamp(1.9rem, 3.6vw, 2.75rem);
     line-height: 1.15;
     text-align: left;
+    color: var(--color-blue-deep);
+  }
+
+  .hero__title span {
+    color: var(--color-blue-electric);
   }
 
   .hero__subtitle {
     font-size: 1.05rem;
-    opacity: 0.9;
+    color: var(--color-text-muted);
     max-width: 560px;
   }
 
@@ -101,7 +105,7 @@ const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMe
     margin-top: 12px;
     font-size: 0.85rem;
     font-style: italic;
-    opacity: 0.85;
+    color: var(--color-text-muted);
     max-width: 480px;
   }
 

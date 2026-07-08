@@ -24,11 +24,18 @@ import { site } from "../data/site";
     justify-content: center;
     gap: 16px;
     aspect-ratio: 16 / 9;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     background: linear-gradient(160deg, var(--color-blue-deep) 0%, var(--color-blue-electric) 100%);
     text-decoration: none;
     color: var(--color-white-warm);
     overflow: hidden;
+    box-shadow: var(--shadow-blue-glow);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .video-slot:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 44px rgba(3, 42, 242, 0.4);
   }
 
   .video-slot__play {

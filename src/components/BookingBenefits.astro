@@ -2,7 +2,7 @@
 import { site } from "../data/site";
 ---
 
-<section class="section booking-benefits">
+<section class="section booking-benefits aura-mint">
   <div class="container booking-benefits__inner">
     <p class="eyebrow booking-benefits__eyebrow">Solo 10 diagnósticos gratuitos por mes</p>
     <h2 class="booking-benefits__title">Agendá tu {site.appointmentName}</h2>
@@ -13,9 +13,9 @@ import { site } from "../data/site";
     </p>
 
     <ul class="booking-benefits__list">
-      <li><strong>Vas a descubrir</strong> dónde estás perdiendo tiempo o plata en tu proceso actual.</li>
-      <li><strong>Vas a recibir</strong> una recomendación concreta de materiales, escala y tiempos para tu caso.</li>
-      <li><strong>Vas a salir</strong> con el siguiente paso claro, sin ningún compromiso de compra.</li>
+      <li class="card-soft"><strong>Vas a descubrir</strong> dónde estás perdiendo tiempo o plata en tu proceso actual.</li>
+      <li class="card-soft"><strong>Vas a recibir</strong> una recomendación concreta de materiales, escala y tiempos para tu caso.</li>
+      <li class="card-soft"><strong>Vas a salir</strong> con el siguiente paso claro, sin ningún compromiso de compra.</li>
     </ul>
 
     <button type="button" class="btn btn-solid" data-open-modal="booking">Quiero mi diagnóstico gratis</button>
@@ -23,11 +23,6 @@ import { site } from "../data/site";
 </section>
 
 <style>
-  .booking-benefits {
-    background: linear-gradient(160deg, var(--color-blue-electric) 0%, var(--color-blue-deep) 100%);
-    color: var(--color-white-warm);
-  }
-
   .booking-benefits__inner {
     max-width: 560px;
     margin-inline: auto;
@@ -39,15 +34,16 @@ import { site } from "../data/site";
   }
 
   .booking-benefits__eyebrow {
-    color: var(--color-green-neon);
+    color: var(--color-blue-electric);
   }
 
   .booking-benefits__title {
     font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    color: var(--color-blue-deep);
   }
 
   .booking-benefits__subtitle {
-    opacity: 0.9;
+    color: var(--color-text-muted);
   }
 
   .booking-benefits__list {
@@ -62,13 +58,13 @@ import { site } from "../data/site";
   }
 
   .booking-benefits__list li {
-    background: rgba(0, 14, 88, 0.35);
     border-radius: 14px;
     padding: 14px 18px;
     font-size: 0.92rem;
+    color: var(--color-text);
   }
 
   .booking-benefits__list strong {
-    color: var(--color-green-neon);
+    color: var(--color-blue-electric);
   }
 </style>

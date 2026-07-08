@@ -29,7 +29,7 @@ const items = [
     <div class="why__grid">
       {
         items.map((item) => (
-          <div class="why__card">
+          <div class="card-soft why__card">
             <p class="why__card-title">{item.title}</p>
             <p class="why__card-detail">{item.detail}</p>
           </div>
@@ -41,12 +41,12 @@ const items = [
 
 <style>
   .why {
-    background: var(--color-blue-electric);
-    color: var(--color-white-warm);
+    background: var(--color-bg);
   }
 
   .why__title {
     font-size: clamp(1.6rem, 3vw, 2.25rem);
+    color: var(--color-blue-deep);
     max-width: 720px;
     margin-bottom: 48px;
   }
@@ -58,19 +58,25 @@ const items = [
   }
 
   .why__card {
-    background: rgba(0, 14, 88, 0.35);
     border-radius: var(--radius-lg);
     padding: 28px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .why__card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
   }
 
   .why__card-title {
     font-weight: 700;
     font-size: 1.1rem;
     margin-bottom: 8px;
+    color: var(--color-blue-deep);
   }
 
   .why__card-detail {
-    opacity: 0.85;
+    color: var(--color-text-muted);
     font-size: 0.95rem;
   }
 </style>

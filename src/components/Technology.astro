@@ -7,14 +7,14 @@ const items = [
 ];
 ---
 
-<section id="tecnologia" class="section tech">
+<section id="tecnologia" class="section tech aura-mint">
   <div class="container">
     <p class="eyebrow tech__eyebrow">Contamos con la última tecnología en impresoras 3D</p>
     <h2 class="tech__title">Tecnología de impresión 3D que potencia tu negocio</h2>
     <div class="tech__grid">
       {
         items.map((item) => (
-          <div class="tech__card">
+          <div class="card-soft tech__card">
             <p class="tech__card-title">{item.title}</p>
             <p class="tech__card-detail">{item.detail}</p>
           </div>
@@ -44,21 +44,26 @@ const items = [
   }
 
   .tech__card {
-    background: var(--color-blue-deep);
-    color: var(--color-white-warm);
     border-radius: var(--radius-lg);
     padding: 32px 28px;
     min-height: 140px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .tech__card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
   }
 
   .tech__card-title {
     font-weight: 700;
     font-size: 1.15rem;
     margin-bottom: 8px;
+    color: var(--color-blue-deep);
   }
 
   .tech__card-detail {
-    opacity: 0.85;
+    color: var(--color-text-muted);
     font-size: 0.95rem;
   }
 </style>

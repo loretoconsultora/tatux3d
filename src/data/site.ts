@@ -7,7 +7,7 @@ export const site = {
   // TODO: replace with the real n8n webhook URL once it's set up. The form
   // POSTs the registration here before revealing the Calendly link.
   registrationWebhookUrl: "https://REPLACE-WITH-N8N-WEBHOOK-URL",
-  whatsapp: "https://wa.me/5490000000000", // TODO: real WhatsApp number
+  whatsapp: "https://wa.me/5491136801900",
   whatsappMessage: "Hola! Quiero hablar con un asesor de TATUX 3D sobre mi proyecto.",
   email: "contacto@tatux3d.com", // TODO: confirm real inbox
   // TODO: swap for the real YouTube URL once the founder's intro video is uploaded.

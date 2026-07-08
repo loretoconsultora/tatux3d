@@ -11,7 +11,7 @@ const errorId = `${formId}-error`;
 const calendlyId = `${formId}-calendly`;
 ---
 
-<div class="booking-card">
+<div class="booking-card glass">
   <p class="eyebrow booking-card__eyebrow">Cupos limitados: 10 diagnósticos gratis por mes</p>
   <h3 class="booking-card__title">{heading}</h3>
 
@@ -111,12 +111,11 @@ const calendlyId = `${formId}-calendly`;
 
 <style>
   .booking-card {
-    background: var(--color-white-warm);
     color: var(--color-text);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     padding: 28px;
     text-align: left;
-    box-shadow: 0 24px 60px rgba(0, 14, 88, 0.25);
+    box-shadow: var(--shadow-lg);
   }
 
   .booking-card__eyebrow {
@@ -151,12 +150,20 @@ const calendlyId = `${formId}-calendly`;
   .booking-card__field input,
   .booking-card__field select {
     padding: 14px 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(3, 42, 242, 0.18);
+    border-radius: 14px;
+    border: 1px solid rgba(3, 42, 242, 0.14);
     font-size: 1rem;
     font-family: inherit;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.9);
     color: var(--color-text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .booking-card__field input:focus,
+  .booking-card__field select:focus {
+    outline: none;
+    border-color: var(--color-blue-electric);
+    box-shadow: 0 0 0 4px rgba(3, 42, 242, 0.12);
   }
 
   .booking-card__submit {

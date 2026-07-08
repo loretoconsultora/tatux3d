@@ -26,7 +26,7 @@ const faqs = [
 <section id="preguntas" class="section faq">
   <div class="container faq__inner">
     <h2 class="faq__title">Preguntas frecuentes</h2>
-    <div class="faq__list">
+    <div class="card-soft faq__list">
       {
         faqs.map((item) => (
           <details class="faq__item">
@@ -41,8 +41,7 @@ const faqs = [
 
 <style>
   .faq {
-    background: var(--color-blue-electric);
-    color: var(--color-white-warm);
+    background: var(--color-bg);
   }
 
   .faq__inner {
@@ -52,13 +51,13 @@ const faqs = [
 
   .faq__title {
     font-size: clamp(1.6rem, 3vw, 2.25rem);
+    color: var(--color-blue-deep);
     text-align: center;
     margin-bottom: 32px;
   }
 
   .faq__list {
-    background: var(--color-white-warm);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     overflow: hidden;
   }
 

@@ -2,12 +2,12 @@
 import { site } from "../data/site";
 ---
 
-<footer class="footer">
+<footer class="footer aura-blue">
   <div class="container footer__inner">
     <p class="eyebrow footer__eyebrow">Cupos limitados · Respuesta en menos de 24 horas</p>
     <h2 class="footer__title">Agendá tu {site.appointmentName}</h2>
     <p class="footer__subtitle">Contanos tu caso y te ayudamos a encontrar la mejor forma de producir.</p>
-    <button type="button" class="btn btn-primary" data-open-modal="booking">Quiero mi diagnóstico gratis</button>
+    <button type="button" class="btn btn-solid" data-open-modal="booking">Quiero mi diagnóstico gratis</button>
 
     <p class="footer__copyright">© {new Date().getFullYear()} TATUX 3D - Todos los derechos reservados.</p>
 
@@ -22,8 +22,6 @@ import { site } from "../data/site";
 
 <style>
   .footer {
-    background: linear-gradient(160deg, var(--color-blue-electric) 0%, var(--color-blue-deep) 100%);
-    color: var(--color-white-warm);
     padding-block: 88px;
   }
 
@@ -36,22 +34,23 @@ import { site } from "../data/site";
   }
 
   .footer__eyebrow {
-    color: var(--color-green-neon);
+    color: var(--color-blue-electric);
   }
 
   .footer__title {
     font-size: clamp(1.6rem, 3vw, 2.25rem);
+    color: var(--color-blue-deep);
   }
 
   .footer__subtitle {
-    opacity: 0.9;
+    color: var(--color-text-muted);
     margin-bottom: 8px;
   }
 
   .footer__copyright {
     margin-top: 48px;
     font-size: 0.85rem;
-    opacity: 0.8;
+    color: var(--color-text-muted);
   }
 
   .footer__social {
@@ -66,9 +65,16 @@ import { site } from "../data/site";
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: rgba(237, 255, 255, 0.12);
+    background: rgba(3, 42, 242, 0.08);
+    color: var(--color-blue-electric);
     text-decoration: none;
     font-weight: 700;
     font-size: 0.8rem;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .footer__social a:hover {
+    background: rgba(3, 42, 242, 0.16);
+    transform: translateY(-2px);
   }
 </style>

@@ -24,7 +24,7 @@ const testimonials = [
     <div class="testimonials__grid">
       {
         testimonials.map((t) => (
-          <blockquote class="testimonials__card">
+          <blockquote class="card-soft testimonials__card">
             <p class="testimonials__quote">“{t.quote}”</p>
             <p class="testimonials__story">{t.story}</p>
           </blockquote>
@@ -54,10 +54,14 @@ const testimonials = [
 
   .testimonials__card {
     margin: 0;
-    background: var(--color-white-warm);
-    border: 1px solid rgba(3, 42, 242, 0.12);
     border-radius: var(--radius-lg);
     padding: 28px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .testimonials__card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
   }
 
   .testimonials__quote {

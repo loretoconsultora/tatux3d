@@ -8,15 +8,24 @@
   --color-black: #000000;
 
   --color-bg: #ffffff;
-  --color-text: #0a0a0a;
-  --color-text-muted: #4b5563;
+  --color-bg-soft: #f5f7fb;
+  --color-text: #1d1d1f;
+  --color-text-muted: #6e6e73;
+  --color-border: rgba(4, 20, 100, 0.08);
 
   --font-body: "Museo Sans Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: "Good Times", var(--font-body);
 
   --radius-lg: 24px;
+  --radius-xl: 32px;
   --radius-full: 999px;
   --max-width: 1160px;
+
+  --shadow-sm: 0 2px 10px rgba(4, 20, 100, 0.06);
+  --shadow-md: 0 16px 40px rgba(4, 20, 100, 0.1);
+  --shadow-lg: 0 28px 70px rgba(4, 20, 100, 0.16);
+  --shadow-blue-glow: 0 14px 32px rgba(3, 42, 242, 0.32);
+  --shadow-green-glow: 0 14px 32px rgba(64, 255, 159, 0.35);
 }
 
 @font-face {
@@ -69,7 +78,7 @@ body {
   font-family: var(--font-body);
   color: var(--color-text);
   background: var(--color-bg);
-  line-height: 1.5;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -100,7 +109,7 @@ h1, h2 {
 }
 
 .section {
-  padding-block: 88px;
+  padding-block: 96px;
 }
 
 @media (max-width: 720px) {
@@ -116,6 +125,44 @@ h1, h2 {
   font-size: 0.8rem;
 }
 
+/* Soft radial "aura" washes: brand color blobs fading into white, used
+   sparingly on a few select sections instead of flat saturated blocks. */
+.aura-blue-mint {
+  background:
+    radial-gradient(circle at 10% 15%, rgba(3, 42, 242, 0.14), transparent 45%),
+    radial-gradient(circle at 88% 8%, rgba(64, 255, 159, 0.18), transparent 42%),
+    var(--color-bg);
+}
+
+.aura-mint {
+  background:
+    radial-gradient(circle at 85% 12%, rgba(64, 255, 159, 0.22), transparent 45%),
+    radial-gradient(circle at 8% 90%, rgba(3, 42, 242, 0.1), transparent 42%),
+    var(--color-bg);
+}
+
+.aura-blue {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(3, 42, 242, 0.18), transparent 45%),
+    radial-gradient(circle at 92% 85%, rgba(3, 42, 242, 0.1), transparent 42%),
+    var(--color-bg);
+}
+
+/* Glassmorphism surface for cards that float over an aura/colored backdrop. */
+.glass {
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Plain elevated card for use on flat white/soft backgrounds. */
+.card-soft {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -128,40 +175,47 @@ h1, h2 {
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .btn:hover {
   transform: translateY(-2px);
 }
 
+.btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
 .btn-primary {
-  background: var(--color-white-warm);
+  background: #ffffff;
   color: var(--color-blue-electric);
+  box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 10px 30px rgba(3, 42, 242, 0.25);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-solid {
-  background: var(--color-blue-electric);
-  color: var(--color-white-warm);
+  background: linear-gradient(135deg, #1747ff 0%, var(--color-blue-electric) 55%, #021ea6 100%);
+  color: #ffffff;
+  box-shadow: var(--shadow-blue-glow);
 }
 
 .btn-solid:hover {
-  box-shadow: 0 10px 30px rgba(3, 42, 242, 0.35);
+  box-shadow: 0 20px 44px rgba(3, 42, 242, 0.4);
 }
 
 .btn-outline {
-  background: transparent;
-  color: var(--color-white-warm);
-  border: 2px solid rgba(237, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--color-blue-deep);
+  border: 1.5px solid rgba(3, 42, 242, 0.22);
+  backdrop-filter: blur(10px);
 }
 
 .btn-outline:hover {
-  background: rgba(237, 255, 255, 0.1);
-  border-color: var(--color-white-warm);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--color-blue-electric);
 }
 
 .btn:disabled {
