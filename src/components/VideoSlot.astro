@@ -1,18 +1,21 @@
 ---
 import { site } from "../data/site";
-
-// TODO: once the founder's intro video is uploaded, swap href for the real
-// YouTube URL and, ideally, replace the placeholder background with the
-// video's real thumbnail (https://img.youtube.com/vi/<id>/maxresdefault.jpg).
 ---
 
-<a href={site.introVideoUrl} target="_blank" rel="noopener noreferrer" class="video-slot" aria-label="Ver la presentación de TATUX 3D en YouTube">
+<a
+  href={site.introVideoUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="video-slot"
+  style={`background-image: linear-gradient(160deg, rgba(0,14,88,0.7) 0%, rgba(3,42,242,0.55) 100%), url('${site.introVideoThumbnail}');`}
+  aria-label="Ver a Iair, fundador de TATUX 3D, en YouTube"
+>
   <div class="video-slot__play">
     <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
       <path d="M8 5v14l11-7z"></path>
     </svg>
   </div>
-  <p class="video-slot__label">Conocé a TATUX 3D — mirá la presentación</p>
+  <p class="video-slot__label">Conocé a Iair, el fundador de TATUX 3D</p>
 </a>
 
 <style>
@@ -25,7 +28,9 @@ import { site } from "../data/site";
     gap: 16px;
     aspect-ratio: 16 / 9;
     border-radius: var(--radius-xl);
-    background: linear-gradient(160deg, var(--color-blue-deep) 0%, var(--color-blue-electric) 100%);
+    background-color: var(--color-blue-deep);
+    background-size: cover;
+    background-position: center;
     text-decoration: none;
     color: var(--color-white-warm);
     overflow: hidden;

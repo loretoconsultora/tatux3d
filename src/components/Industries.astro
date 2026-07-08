@@ -1,6 +1,9 @@
 ---
 const items = [
-  { title: "Industrias", detail: "Elimina el costo de moldes y reduce la necesidad de stock." },
+  { title: "Iluminación & Diseño", detail: "Cada pantalla y cada forma, tal como la imaginás — sin producir en masa." },
+  { title: "Merchandising Empresarial", detail: "Piezas de marca en volumen, con la misma calidad en la unidad 1 y en la 1.000." },
+  { title: "Agencias & BTL", detail: "Piezas para campañas, a escala y a tiempo, sin perder identidad de marca." },
+  { title: "Talleres & Manufactura", detail: "Elimina el costo de moldes y reduce la necesidad de stock." },
   { title: "Arquitectura", detail: "Transformá planos en maquetas tangibles listas para presentar." },
   { title: "Salud & Odontología", detail: "Modelos precisos y a medida para tratamientos más efectivos." },
   { title: "Repuestos", detail: "Devuelve vida a piezas que ya no se consiguen." },
@@ -10,7 +13,8 @@ const items = [
 
 <section id="industrias" class="section industries">
   <div class="container">
-    <h2 class="industries__title">Soluciones 3D a la medida de tu industria</h2>
+    <p class="eyebrow industries__eyebrow">Del diseño a la pieza, sea cual sea tu rubro</p>
+    <h2 class="industries__title">Producción 3D para tu industria</h2>
     <div class="industries__grid">
       {
         items.map((item) => (
@@ -27,6 +31,11 @@ const items = [
 <style>
   .industries {
     background: var(--color-bg-soft);
+  }
+
+  .industries__eyebrow {
+    color: var(--color-blue-electric);
+    margin-bottom: 8px;
   }
 
   .industries__title {
