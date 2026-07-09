@@ -116,6 +116,7 @@ const calendlyId = `${formId}-calendly`;
     padding: 28px;
     text-align: left;
     box-shadow: var(--shadow-lg);
+    min-width: 0;
   }
 
   .booking-card__eyebrow {
@@ -149,6 +150,9 @@ const calendlyId = `${formId}-calendly`;
 
   .booking-card__field input,
   .booking-card__field select {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     padding: 14px 16px;
     border-radius: 14px;
     border: 1px solid rgba(3, 42, 242, 0.14);
