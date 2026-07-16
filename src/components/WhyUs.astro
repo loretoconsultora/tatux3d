@@ -1,26 +1,4 @@
 ---
-const items = [
-  {
-    title: "Prototipo inicial sin costo",
-    detail: "En menos de 24 horas",
-  },
-  {
-    title: "Producción en tiempo récord",
-    detail: "Asegurando la más alta calidad",
-  },
-  {
-    title: "Producción desde $30.000 AR",
-    detail: "Escalás sin límites",
-  },
-  {
-    title: "Envíos a todo el país",
-    detail: "Tu pedido hasta tu negocio",
-  },
-  {
-    title: "Más de 100 empresas argentinas",
-    detail: "Ya confiaron en nosotros",
-  },
-];
 ---
 
 <section class="section why">
@@ -42,17 +20,6 @@ const items = [
         <h3>Calidad Premium</h3>
         <p>El mismo nivel de detalle en la pieza 1 y en la 1.000 — sin sorpresas.</p>
       </div>
-    </div>
-
-    <div class="why__grid">
-      {
-        items.map((item) => (
-          <div class="card-soft why__card">
-            <p class="why__card-title">{item.title}</p>
-            <p class="why__card-detail">{item.detail}</p>
-          </div>
-        ))
-      }
     </div>
   </div>
 </section>
@@ -89,7 +56,6 @@ const items = [
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    margin-bottom: 40px;
   }
 
   .why__pillar {
@@ -110,34 +76,5 @@ const items = [
   .why__pillar p {
     font-size: 0.9rem;
     opacity: 0.9;
-  }
-
-  .why__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-  }
-
-  .why__card {
-    border-radius: var(--radius-lg);
-    padding: 28px 24px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-
-  .why__card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .why__card-title {
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-    color: var(--color-blue-deep);
-  }
-
-  .why__card-detail {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
   }
 </style>

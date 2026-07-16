@@ -9,17 +9,30 @@ const items = [
 
 <section id="tecnologia" class="section tech aura-mint">
   <div class="container">
-    <p class="eyebrow tech__eyebrow">Sin moldes, sin mínimos, sin demoras</p>
-    <h2 class="tech__title">La granja que hace posible producir sin límites</h2>
+    <p class="eyebrow tech__eyebrow">Conocé nuestros servicios</p>
+    <h2 class="tech__title">La granja que acompaña a más de 100 empresas Argentinas</h2>
     <div class="tech__grid">
       {
         items.map((item) => (
           <div class="card-soft tech__card">
-            <p class="tech__card-title">{item.title}</p>
-            <p class="tech__card-detail">{item.detail}</p>
+            <div class="tech__card-photo">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                <circle cx="8.5" cy="9.5" r="1.5"></circle>
+                <path d="M21 16l-5.5-5.5a2 2 0 0 0-2.8 0L3 20"></path>
+              </svg>
+            </div>
+            <div class="tech__card-body">
+              <p class="tech__card-title">{item.title}</p>
+              <p class="tech__card-detail">{item.detail}</p>
+            </div>
           </div>
         ))
       }
+    </div>
+
+    <div class="tech__cta">
+      <button type="button" class="btn btn-solid" data-open-modal="booking">Iniciar mi producción</button>
     </div>
   </div>
 </section>
@@ -28,6 +41,7 @@ const items = [
   .tech__eyebrow {
     color: var(--color-blue-electric);
     margin-bottom: 8px;
+    text-align: center;
   }
 
   .tech__title {
@@ -35,6 +49,8 @@ const items = [
     color: var(--color-blue-deep);
     margin-bottom: 40px;
     max-width: 720px;
+    margin-inline: auto;
+    text-align: center;
   }
 
   .tech__grid {
@@ -45,14 +61,30 @@ const items = [
 
   .tech__card {
     border-radius: var(--radius-lg);
-    padding: 32px 28px;
-    min-height: 140px;
+    overflow: hidden;
+    text-align: center;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
   .tech__card:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
+  }
+
+  .tech__card-photo {
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-blue-electric);
+    background:
+      radial-gradient(circle at 25% 20%, rgba(3, 42, 242, 0.12), transparent 55%),
+      radial-gradient(circle at 80% 85%, rgba(64, 255, 159, 0.16), transparent 55%),
+      var(--color-bg-soft);
+  }
+
+  .tech__card-body {
+    padding: 20px 24px 28px;
   }
 
   .tech__card-title {
@@ -65,5 +97,11 @@ const items = [
   .tech__card-detail {
     color: var(--color-text-muted);
     font-size: 0.95rem;
+  }
+
+  .tech__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
   }
 </style>

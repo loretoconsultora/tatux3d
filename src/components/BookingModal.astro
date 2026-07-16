@@ -6,7 +6,7 @@ import BookingFormCard from "./BookingFormCard.astro";
   <div class="booking-modal__overlay" data-close-modal></div>
   <div class="booking-modal__dialog" role="dialog" aria-modal="true" aria-label="Agendar diagnóstico">
     <button type="button" class="booking-modal__close" data-close-modal aria-label="Cerrar">&times;</button>
-    <BookingFormCard formId="modal-booking" />
+    <BookingFormCard formId="modal-booking" heading="Producción en tiempo récord" />
   </div>
 </div>
 
@@ -14,28 +14,45 @@ import BookingFormCard from "./BookingFormCard.astro";
   const modal = document.getElementById("booking-modal");
   if (!modal) throw new Error("#booking-modal not found");
 
+  const openModal = () => {
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    modal.hidden = true;
+    document.body.style.overflow = "";
+  };
+
   document.addEventListener("click", (event) => {
     const target = event.target as HTMLElement;
 
     if (target.closest("[data-open-modal='booking']")) {
       event.preventDefault();
-      modal.hidden = false;
-      document.body.style.overflow = "hidden";
+      openModal();
       return;
     }
 
     if (target.closest("[data-close-modal]")) {
-      modal.hidden = true;
-      document.body.style.overflow = "";
+      closeModal();
     }
   });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !modal.hidden) {
-      modal.hidden = true;
-      document.body.style.overflow = "";
+      closeModal();
     }
   });
+
+  // Auto-open once per browser session, 3s after the page loads, unless the
+  // visitor already opened or dismissed it.
+  const AUTO_OPEN_KEY = "tatux-welcome-modal-shown";
+  if (!sessionStorage.getItem(AUTO_OPEN_KEY)) {
+    setTimeout(() => {
+      if (modal.hidden) openModal();
+      sessionStorage.setItem(AUTO_OPEN_KEY, "1");
+    }, 3000);
+  }
 </script>
 
 <style>
