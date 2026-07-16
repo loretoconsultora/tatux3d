@@ -12,6 +12,8 @@ export const site = {
   email: "contacto@tatux3d.com", // TODO: confirm real inbox
   introVideoId: "F18dNYVsYVQ",
   introVideoUrl: "https://youtu.be/F18dNYVsYVQ",
+  bookingVideoId: "gsOjSXkNw_g",
+  bookingVideoUrl: "https://youtube.com/shorts/gsOjSXkNw_g",
   projectOptions: [
     { value: "prototipo", label: "Prototipo o pieza única" },
     { value: "serie", label: "Producción en serie" },
@@ -19,8 +21,9 @@ export const site = {
     { value: "no-se", label: "Todavía no lo sé" },
   ],
   social: {
-    facebook: "#",
-    instagram: "#",
-    linkedin: "#",
+    facebook: "https://www.facebook.com/tatux3d.granjadeimpresion3d",
+    instagram: "https://www.instagram.com/tatux3d.arg/",
+    tiktok: "https://www.tiktok.com/@tatux3d.ar",
   },
+  address: "Agüero 778, C1171 Buenos Aires, CABA, Argentina",
 };

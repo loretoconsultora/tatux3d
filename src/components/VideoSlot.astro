@@ -1,11 +1,23 @@
 ---
 import { site } from "../data/site";
+
+interface Props {
+  videoId?: string;
+  title?: string;
+  aspectRatio?: "16/9" | "9/16";
+}
+
+const {
+  videoId = site.introVideoId,
+  title = "Conocé a Iair, el fundador de TATUX 3D",
+  aspectRatio = "16/9",
+} = Astro.props;
 ---
 
-<div class="video-embed">
+<div class="video-embed" data-aspect={aspectRatio}>
   <iframe
-    src={`https://www.youtube.com/embed/${site.introVideoId}`}
-    title="Conocé a Iair, el fundador de TATUX 3D"
+    src={`https://www.youtube.com/embed/${videoId}`}
+    title={title}
     loading="lazy"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     allowfullscreen
@@ -21,6 +33,10 @@ import { site } from "../data/site";
     overflow: hidden;
     box-shadow: var(--shadow-blue-glow);
     background: var(--color-blue-deep);
+  }
+
+  .video-embed[data-aspect="9/16"] {
+    aspect-ratio: 9 / 16;
   }
 
   .video-embed iframe {
