@@ -1,35 +1,36 @@
 ---
-import { site } from "../data/site";
+import VideoSlot from "./VideoSlot.astro";
 ---
 
-<section class="section booking-benefits aura-mint">
+<section id="llamada" class="section booking-benefits aura-mint">
   <div class="container booking-benefits__inner">
-    <h2 class="booking-benefits__title">Agendá tu {site.appointmentName}</h2>
-    <p class="booking-benefits__subtitle">
-      El precio oculto de tu producción no es la materia prima ni la maquinaria: son los tiempos de espera, las
-      decisiones tardías y los procesos que nadie cuestiona. En 20 minutos lo hacemos visible y armamos un plan a
-      medida — sin costo y sin compromiso.
-    </p>
+    <h2 class="booking-benefits__title">¿Por qué agendar tu Llamada?</h2>
 
-    <ul class="booking-benefits__list">
-      <li class="card-soft"><strong>Vas a descubrir</strong> dónde estás perdiendo tiempo o plata en tu proceso actual.</li>
-      <li class="card-soft"><strong>Vas a recibir</strong> una recomendación concreta de materiales, escala y tiempos — pensada por un diseñador industrial, no solo por un operador de impresoras.</li>
-      <li class="card-soft"><strong>Vas a salir</strong> con el siguiente paso claro, sin ningún compromiso de compra.</li>
-    </ul>
+    <div class="booking-benefits__grid">
+      <ul class="booking-benefits__list">
+        <li class="card-soft"><strong>Vas a descubrir</strong> dónde estás perdiendo tiempo o plata en tu proceso actual.</li>
+        <li class="card-soft"><strong>Vas a recibir</strong> una recomendación concreta de materiales, escala y tiempos — pensada por un diseñador industrial, no solo por un operador de impresoras.</li>
+        <li class="card-soft"><strong>Vas a salir</strong> con el siguiente paso claro, sin ningún compromiso de compra.</li>
+      </ul>
 
-    <button type="button" class="btn btn-solid" data-open-modal="booking">Quiero mi diagnóstico gratis</button>
+      <div class="booking-benefits__video">
+        <VideoSlot />
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-solid" data-open-modal="booking">Quiero mi Llamada</button>
   </div>
 </section>
 
 <style>
   .booking-benefits__inner {
-    max-width: 560px;
+    max-width: 980px;
     margin-inline: auto;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 32px;
   }
 
   .booking-benefits__title {
@@ -37,19 +38,23 @@ import { site } from "../data/site";
     color: var(--color-blue-deep);
   }
 
-  .booking-benefits__subtitle {
-    color: var(--color-text-muted);
+  .booking-benefits__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    width: 100%;
+    align-items: center;
+    text-align: left;
   }
 
   .booking-benefits__list {
     list-style: none;
-    margin: 8px 0 16px;
+    margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    text-align: left;
-    width: 100%;
+    min-width: 0;
   }
 
   .booking-benefits__list li {
@@ -61,5 +66,16 @@ import { site } from "../data/site";
 
   .booking-benefits__list strong {
     color: var(--color-blue-electric);
+  }
+
+  .booking-benefits__video {
+    min-width: 0;
+  }
+
+  @media (min-width: 800px) {
+    .booking-benefits__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 36px;
+    }
   }
 </style>
