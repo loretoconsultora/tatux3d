@@ -36,11 +36,6 @@ const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMe
           Hablá por WhatsApp con un asesor
         </a>
       </div>
-
-      <p class="hero__proof">
-        Elegidos por líderes industriales, arquitectos, agencias de marketing y profesionales de la salud de toda
-        Argentina.
-      </p>
     </div>
 
     <div class="hero__panel">
@@ -96,8 +91,7 @@ const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMe
   }
 
   .hero__title-accent {
-    /* Brand green (Verde Neón), deepened for legible text on a light background. */
-    color: #0ea56b;
+    color: var(--color-blue-electric);
   }
 
   .hero__pitch {
@@ -152,14 +146,6 @@ const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMe
     display: inline-flex;
     align-items: center;
     gap: 10px;
-  }
-
-  .hero__proof {
-    margin-top: 12px;
-    font-size: 0.85rem;
-    font-style: italic;
-    color: var(--color-text-muted);
-    max-width: 480px;
   }
 
   .hero__panel {
