@@ -10,11 +10,20 @@ const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMe
   <div class="container hero__grid">
     <div class="hero__content">
       <p class="hero__badge">Aliados en producción, no proveedores</p>
-      <h1 class="hero__title">De la idea a la realidad: <span>producción ágil y rentable con impresión 3D.</span></h1>
-      <p class="hero__subtitle">
-        Somos tu aliado en producción 3D: co-diseñamos tu proyecto, ajustamos el volumen bajo demanda y te damos la
-        velocidad, flexibilidad y control para que tu negocio crezca sin límites de producción.
-      </p>
+      <h1 class="hero__title">
+        <span class="hero__title-lead">De la idea a la realidad:</span>
+        producción ágil y rentable con <span class="hero__title-accent">impresión 3D</span>.
+      </h1>
+
+      <div class="hero__pitch">
+        <p class="hero__pitch-lead">Somos tu aliado en producción 3D:</p>
+        <ul class="hero__bullets">
+          <li>Revisión / Diseño de tu proyecto</li>
+          <li>Producción sin mínimos ni límites de volumen</li>
+          <li>Producción bajo demanda</li>
+          <li>Velocidad, flexibilidad y adaptabilidad</li>
+        </ul>
+      </div>
 
       <div class="hero__ctas">
         <button type="button" class="btn btn-solid hero__cta" data-open-modal="booking">Quiero mi diagnóstico gratis</button>
@@ -79,14 +88,57 @@ const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMe
     color: var(--color-blue-deep);
   }
 
-  .hero__title span {
-    color: var(--color-blue-electric);
+  .hero__title-lead {
+    display: block;
+    font-size: 0.5em;
+    font-weight: 400;
+    margin-bottom: 6px;
   }
 
-  .hero__subtitle {
-    font-size: 1.05rem;
-    color: var(--color-text-muted);
+  .hero__title-accent {
+    /* Brand green (Verde Neón), deepened for legible text on a light background. */
+    color: #0ea56b;
+  }
+
+  .hero__pitch {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     max-width: 560px;
+  }
+
+  .hero__pitch-lead {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-blue-deep);
+    margin: 0;
+  }
+
+  .hero__bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .hero__bullets li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--color-text-muted);
+    font-size: 1.02rem;
+  }
+
+  .hero__bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-blue-electric);
   }
 
   .hero__ctas {

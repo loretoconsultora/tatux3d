@@ -12,7 +12,6 @@ const calendlyId = `${formId}-calendly`;
 ---
 
 <div class="booking-card glass">
-  <p class="eyebrow booking-card__eyebrow">Cupos limitados: 10 diagnósticos gratis por mes</p>
   <h3 class="booking-card__title">{heading}</h3>
 
   <form id={formId} class="booking-card__form" novalidate>
@@ -119,13 +118,9 @@ const calendlyId = `${formId}-calendly`;
     min-width: 0;
   }
 
-  .booking-card__eyebrow {
-    color: var(--color-blue-electric);
-  }
-
   .booking-card__title {
     font-size: 1.4rem;
-    margin-top: 8px;
+    margin-top: 0;
     margin-bottom: 16px;
     color: var(--color-blue-deep);
   }
