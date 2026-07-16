@@ -1,25 +1,38 @@
 ---
+const items = [
+  { title: "Líderes en la Industria", detail: "Elimina el costo de moldes y reduce la necesidad de stock." },
+  { title: "Agencias de Publicidad", detail: "Piezas para campañas, a escala y a tiempo, sin perder identidad de marca." },
+  { title: "Arquitectura y Diseño", detail: "Transformá planos en maquetas tangibles listas para presentar." },
+  { title: "Interiorismo", detail: "Objetos y piezas decorativas a medida, tal como los imaginás." },
+  { title: "Profesionales de la Salud", detail: "Modelos precisos y a medida para tratamientos más efectivos." },
+  { title: "Merch", detail: "Piezas de marca en volumen, con la misma calidad en la unidad 1 y en la 1.000." },
+];
 ---
 
-<section class="section why">
+<section id="industrias" class="section why">
   <div class="container">
     <p class="eyebrow why__eyebrow">Transforma tu producción</p>
     <h2 class="why__title">Velocidad. Flexibilidad. Calidad Premium.</h2>
     <p class="why__subtitle">Crecé sin frenos en cualquier industria.</p>
 
-    <div class="why__pillars">
-      <div class="why__pillar">
-        <h3>Velocidad</h3>
-        <p>De la idea a la pieza en días, no semanas.</p>
-      </div>
-      <div class="why__pillar">
-        <h3>Flexibilidad</h3>
-        <p>Ajustás diseño y volumen sobre la marcha, sin perder tiempo.</p>
-      </div>
-      <div class="why__pillar">
-        <h3>Calidad Premium</h3>
-        <p>El mismo nivel de detalle en la pieza 1 y en la 1.000 — sin sorpresas.</p>
-      </div>
+    <div class="why__grid">
+      {
+        items.map((item) => (
+          <div class="card-soft why__card">
+            <div class="why__card-photo">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                <circle cx="8.5" cy="9.5" r="1.5"></circle>
+                <path d="M21 16l-5.5-5.5a2 2 0 0 0-2.8 0L3 20"></path>
+              </svg>
+            </div>
+            <div class="why__card-body">
+              <p class="why__card-title">{item.title}</p>
+              <p class="why__card-detail">{item.detail}</p>
+            </div>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -52,29 +65,49 @@
     text-align: center;
   }
 
-  .why__pillars {
+  .why__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
   }
 
-  .why__pillar {
-    padding: 24px;
+  .why__card {
     border-radius: var(--radius-lg);
-    background: linear-gradient(160deg, var(--color-blue-electric) 0%, var(--color-blue-deep) 100%);
-    color: var(--color-white-warm);
-    box-shadow: var(--shadow-blue-glow);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
-  .why__pillar h3 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 1.3rem;
+  .why__card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .why__card-photo {
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-blue-electric);
+    background:
+      radial-gradient(circle at 25% 20%, rgba(3, 42, 242, 0.12), transparent 55%),
+      radial-gradient(circle at 80% 85%, rgba(64, 255, 159, 0.16), transparent 55%),
+      var(--color-bg-soft);
+  }
+
+  .why__card-body {
+    padding: 20px 24px 28px;
+  }
+
+  .why__card-title {
+    font-weight: 700;
+    font-size: 1.05rem;
     margin-bottom: 8px;
+    color: var(--color-blue-deep);
   }
 
-  .why__pillar p {
+  .why__card-detail {
+    color: var(--color-text-muted);
     font-size: 0.9rem;
-    opacity: 0.9;
   }
 </style>
