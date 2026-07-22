@@ -1,10 +1,43 @@
 ---
 const items = [
-  { key: "lideres", title: "Líderes en la Industria", detail: "Trabajamos con empresas del rubro industrial: piezas, moldes, refacciones, productos terminados y mucho más." },
-  { key: "agencias", title: "Agencias de Publicidad", detail: "Hacemos realidad tu campaña con productos personalizados, a alta velocidad y sin límites de piezas." },
-  { key: "arquitectura", title: "Arquitectura y Diseño Industrial", detail: "Transformá planos en maquetas tangibles listas para presentar — ideal para validar ideas y mostrar tu proyecto a clientes o profesores." },
-  { key: "interiores", title: "Diseño de Interiores y Decoración", detail: "Lámparas, productos de iluminación, piezas decorativas y muebles, listos para uso personal o para vender toda una línea a catálogo." },
-  { key: "merch", title: "Merch", detail: "El merch que funciona es el que identifica a tu empresa: desde mates hasta llaveros personalizados, con alto sentido de identidad y funcionalidad." },
+  {
+    key: "lideres",
+    title: "Líderes en la Industria",
+    detail: "Trabajamos con empresas del rubro industrial: piezas, moldes, refacciones, productos terminados y mucho más.",
+    images: ["/portfolio/lideres/1.jpg", "/portfolio/lideres/2.jpg"],
+  },
+  {
+    key: "agencias",
+    title: "Agencias de Publicidad",
+    detail: "Hacemos realidad tu campaña con productos personalizados, a alta velocidad y sin límites de piezas.",
+    images: ["/portfolio/agencias/1.jpg", "/portfolio/agencias/2.jpg"],
+  },
+  {
+    key: "arquitectura",
+    title: "Arquitectura y Diseño Industrial",
+    detail: "Transformá planos en maquetas tangibles listas para presentar — ideal para validar ideas y mostrar tu proyecto a clientes o profesores.",
+    images: ["/portfolio/arquitectura/1.jpg", "/portfolio/arquitectura/2.jpg"],
+  },
+  {
+    key: "interiores",
+    title: "Diseño de Interiores y Decoración",
+    detail: "Lámparas, productos de iluminación, piezas decorativas y muebles, listos para uso personal o para vender toda una línea a catálogo.",
+    images: [
+      "/portfolio/interiores/1.jpg",
+      "/portfolio/interiores/2.jpg",
+      "/portfolio/interiores/3.jpg",
+      "/portfolio/interiores/4.jpg",
+      "/portfolio/interiores/5.jpg",
+      "/portfolio/interiores/6.jpg",
+      "/portfolio/interiores/7.jpg",
+    ],
+  },
+  {
+    key: "merch",
+    title: "Merch",
+    detail: "El merch que funciona es el que identifica a tu empresa: desde mates hasta llaveros personalizados, con alto sentido de identidad y funcionalidad.",
+    images: ["/portfolio/merch/1.jpg"],
+  },
 ];
 ---
 
@@ -22,13 +55,10 @@ const items = [
             class="card-soft why__card"
             data-open-portfolio={item.key}
             data-portfolio-title={item.title}
+            data-portfolio-images={JSON.stringify(item.images)}
           >
             <div class="why__card-photo">
-              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-                <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-                <circle cx="8.5" cy="9.5" r="1.5"></circle>
-                <path d="M21 16l-5.5-5.5a2 2 0 0 0-2.8 0L3 20"></path>
-              </svg>
+              <img src={item.images[0]} alt={item.title} loading="lazy" />
             </div>
             <div class="why__card-body">
               <p class="why__card-title">{item.title}</p>
@@ -97,14 +127,15 @@ const items = [
 
   .why__card-photo {
     aspect-ratio: 4 / 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-blue-electric);
-    background:
-      radial-gradient(circle at 25% 20%, rgba(3, 42, 242, 0.12), transparent 55%),
-      radial-gradient(circle at 80% 85%, rgba(64, 255, 159, 0.16), transparent 55%),
-      var(--color-bg-soft);
+    overflow: hidden;
+    background: var(--color-bg-soft);
+  }
+
+  .why__card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .why__card-body {

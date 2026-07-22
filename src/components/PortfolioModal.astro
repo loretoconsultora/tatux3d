@@ -1,35 +1,23 @@
----
-const PLACEHOLDER_COUNT = 6;
----
-
 <div id="portfolio-modal" class="portfolio-modal" hidden>
   <div class="portfolio-modal__overlay" data-close-portfolio></div>
   <div class="portfolio-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="portfolio-modal-title">
     <button type="button" class="portfolio-modal__close" data-close-portfolio aria-label="Cerrar">&times;</button>
     <h3 id="portfolio-modal-title" class="portfolio-modal__title"></h3>
-    <div id="portfolio-modal-grid" class="portfolio-modal__grid">
-      {
-        Array.from({ length: PLACEHOLDER_COUNT }).map(() => (
-          <div class="portfolio-modal__photo">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-              <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-              <circle cx="8.5" cy="9.5" r="1.5"></circle>
-              <path d="M21 16l-5.5-5.5a2 2 0 0 0-2.8 0L3 20"></path>
-            </svg>
-          </div>
-        ))
-      }
-    </div>
+    <div id="portfolio-modal-grid" class="portfolio-modal__grid"></div>
   </div>
 </div>
 
 <script>
   const modal = document.getElementById("portfolio-modal");
   const title = document.getElementById("portfolio-modal-title");
-  if (!modal || !title) throw new Error("#portfolio-modal not found");
+  const grid = document.getElementById("portfolio-modal-grid");
+  if (!modal || !title || !grid) throw new Error("#portfolio-modal not found");
 
-  const openModal = (portfolioTitle: string) => {
+  const openModal = (portfolioTitle: string, images: string[]) => {
     title.textContent = portfolioTitle;
+    grid.innerHTML = images
+      .map((src) => `<div class="portfolio-modal__photo"><img src="${src}" alt="${portfolioTitle}" loading="lazy" /></div>`)
+      .join("");
     modal.hidden = false;
     document.body.style.overflow = "hidden";
   };
@@ -45,7 +33,13 @@ const PLACEHOLDER_COUNT = 6;
     const trigger = target.closest("[data-open-portfolio]") as HTMLElement | null;
     if (trigger) {
       event.preventDefault();
-      openModal(trigger.dataset.portfolioTitle || "Portfolio");
+      let images: string[] = [];
+      try {
+        images = JSON.parse(trigger.dataset.portfolioImages || "[]");
+      } catch {
+        images = [];
+      }
+      openModal(trigger.dataset.portfolioTitle || "Portfolio", images);
       return;
     }
 
@@ -125,14 +119,15 @@ const PLACEHOLDER_COUNT = 6;
   .portfolio-modal__photo {
     aspect-ratio: 4 / 3;
     border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-blue-electric);
-    background:
-      radial-gradient(circle at 25% 20%, rgba(3, 42, 242, 0.12), transparent 55%),
-      radial-gradient(circle at 80% 85%, rgba(64, 255, 159, 0.16), transparent 55%),
-      var(--color-bg-soft);
+    overflow: hidden;
+    background: var(--color-bg-soft);
+  }
+
+  .portfolio-modal__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   @media (min-width: 600px) {

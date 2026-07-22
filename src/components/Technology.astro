@@ -1,10 +1,10 @@
 ---
 const items = [
-  { title: "Desarrollo de producto", detail: "Diseño industrial de tu pieza, de la idea a la producción." },
-  { title: "Producción en serie", detail: "Contamos con más de 30 impresoras 3D." },
-  { title: "Impresión Multicolor", detail: "Piezas de hasta 4 colores." },
-  { title: "Materiales técnicos", detail: "Imprimimos en ABS y Nylon." },
-  { title: "Impresión a Gran Escala", detail: "Piezas de hasta 1 metro de altura." },
+  { title: "Desarrollo de producto", detail: "Diseño industrial de tu pieza, de la idea a la producción.", image: "/services/desarrollo-producto.jpg" },
+  { title: "Producción en serie", detail: "Contamos con más de 30 impresoras 3D.", image: "/services/produccion-serie.jpg" },
+  { title: "Impresión Multicolor", detail: "Piezas de hasta 4 colores.", image: "/services/multicolor.jpg" },
+  { title: "Materiales técnicos", detail: "Imprimimos en ABS y Nylon.", image: "/services/materiales-tecnicos.jpg" },
+  { title: "Impresión a Gran Escala", detail: "Piezas de hasta 1 metro de altura.", image: "/services/gran-escala.jpg" },
 ];
 ---
 
@@ -17,11 +17,7 @@ const items = [
         items.map((item) => (
           <div class="card-soft tech__card">
             <div class="tech__card-photo">
-              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-                <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-                <circle cx="8.5" cy="9.5" r="1.5"></circle>
-                <path d="M21 16l-5.5-5.5a2 2 0 0 0-2.8 0L3 20"></path>
-              </svg>
+              <img src={item.image} alt={item.title} loading="lazy" />
             </div>
             <div class="tech__card-body">
               <p class="tech__card-title">{item.title}</p>
@@ -86,14 +82,15 @@ const items = [
 
   .tech__card-photo {
     aspect-ratio: 4 / 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-blue-electric);
-    background:
-      radial-gradient(circle at 25% 20%, rgba(3, 42, 242, 0.12), transparent 55%),
-      radial-gradient(circle at 80% 85%, rgba(64, 255, 159, 0.16), transparent 55%),
-      var(--color-bg-soft);
+    overflow: hidden;
+    background: var(--color-bg-soft);
+  }
+
+  .tech__card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .tech__card-body {
