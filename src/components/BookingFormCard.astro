@@ -129,6 +129,7 @@ const calendlyId = `${formId}-calendly`;
 
     form.hidden = true;
     calendlyContainer.hidden = false;
+    calendlyContainer.closest(".booking-card")?.classList.add("booking-card--calendly-active");
 
     loadCalendlyAssets(() => {
       window.Calendly.initInlineWidget({
@@ -150,11 +151,19 @@ const calendlyId = `${formId}-calendly`;
     min-width: 0;
   }
 
+  .booking-card--calendly-active {
+    padding: 16px;
+  }
+
   .booking-card__title {
     font-size: 1.4rem;
     margin-top: 0;
     margin-bottom: 16px;
     color: var(--color-blue-deep);
+  }
+
+  .booking-card--calendly-active .booking-card__title {
+    display: none;
   }
 
   .booking-card__form {
@@ -204,7 +213,8 @@ const calendlyId = `${formId}-calendly`;
 
   .booking-card__calendly-inline {
     width: 100%;
-    min-height: 650px;
+    min-height: 720px;
+    height: 80vh;
     margin-top: 4px;
   }
 
@@ -220,5 +230,9 @@ const calendlyId = `${formId}-calendly`;
     font-size: 0.8rem;
     text-align: center;
     color: var(--color-text-muted);
+  }
+
+  .booking-card--calendly-active .booking-card__footnote {
+    display: none;
   }
 </style>
