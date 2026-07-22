@@ -20,6 +20,10 @@ const calendlyId = `${formId}-calendly`;
       <input id={`${formId}-name`} name="name" type="text" required autocomplete="name" placeholder="Tu nombre" />
     </div>
     <div class="booking-card__field">
+      <label for={`${formId}-email`}>Email</label>
+      <input id={`${formId}-email`} name="email" type="email" required autocomplete="email" placeholder="tu@email.com" />
+    </div>
+    <div class="booking-card__field">
       <label for={`${formId}-phone`}>WhatsApp</label>
       <input id={`${formId}-phone`} name="phone" type="tel" required autocomplete="tel" placeholder="+54 9 ..." />
     </div>
@@ -36,16 +40,7 @@ const calendlyId = `${formId}-calendly`;
     </button>
   </form>
 
-  <a
-    id={calendlyId}
-    class="btn btn-primary booking-card__calendly"
-    href={site.calendlyUrl}
-    target="_blank"
-    rel="noopener noreferrer"
-    hidden
-  >
-    Elegí el horario de tu Llamada
-  </a>
+  <div id={calendlyId} class="booking-card__calendly-inline" hidden></div>
 
   <p id={errorId} class="booking-card__error" hidden>Completá todos los campos para continuar.</p>
 
@@ -64,18 +59,47 @@ const calendlyId = `${formId}-calendly`;
   const form = document.getElementById(formId);
   const submitButton = form?.querySelector("button[type=submit]");
   const submitLabel = form?.querySelector(".booking-card__submit-label");
-  const calendlyLink = document.getElementById(calendlyId);
+  const calendlyContainer = document.getElementById(calendlyId);
   const errorMessage = document.getElementById(errorId);
+
+  function loadCalendlyAssets(onReady) {
+    if (window.Calendly) {
+      onReady();
+      return;
+    }
+
+    if (!document.querySelector('link[data-calendly-widget]')) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://assets.calendly.com/assets/external/widget.css";
+      link.dataset.calendlyWidget = "true";
+      document.head.appendChild(link);
+    }
+
+    const existingScript = document.querySelector('script[data-calendly-widget]');
+    if (existingScript) {
+      existingScript.addEventListener("load", onReady, { once: true });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    script.dataset.calendlyWidget = "true";
+    script.addEventListener("load", onReady, { once: true });
+    document.head.appendChild(script);
+  }
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const data = new FormData(form);
     const name = String(data.get("name") || "").trim();
+    const email = String(data.get("email") || "").trim();
     const phone = String(data.get("phone") || "").trim();
     const project = String(data.get("project") || "").trim();
 
-    if (!name || !phone || !project) {
+    if (!name || !email || !phone || !project) {
       errorMessage.hidden = false;
       return;
     }
@@ -85,26 +109,29 @@ const calendlyId = `${formId}-calendly`;
     submitLabel.textContent = "Registrando...";
 
     // Registers the lead in the n8n webhook (which writes to the shared
-    // spreadsheet and sends the email notification) before unlocking
-    // Calendly. If the webhook is unreachable we still let the user book,
-    // so a n8n outage never blocks someone from scheduling a call.
+    // spreadsheet and sends the email notification) before showing the
+    // Calendly picker. If the webhook is unreachable we still let the user
+    // book, so a n8n outage never blocks someone from scheduling a call.
     try {
       await fetch(registrationWebhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, project, source: "tatux3d.com" }),
+        body: JSON.stringify({ name, email, phone, project, source: "tatux3d.com" }),
       });
     } catch (err) {
       console.error("No se pudo registrar el lead en el webhook:", err);
     }
 
-    const url = new URL(calendlyUrl);
-    url.searchParams.set("name", name);
-
-    calendlyLink.href = url.toString();
-    calendlyLink.hidden = false;
     form.hidden = true;
-    calendlyLink.focus();
+    calendlyContainer.hidden = false;
+
+    loadCalendlyAssets(() => {
+      window.Calendly.initInlineWidget({
+        url: calendlyUrl,
+        parentElement: calendlyContainer,
+        prefill: { name, email },
+      });
+    });
   });
 </script>
 
@@ -170,8 +197,9 @@ const calendlyId = `${formId}-calendly`;
     width: 100%;
   }
 
-  .booking-card__calendly {
+  .booking-card__calendly-inline {
     width: 100%;
+    min-height: 650px;
     margin-top: 4px;
   }
 
