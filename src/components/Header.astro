@@ -3,7 +3,9 @@
 
 <header class="header">
   <div class="container header__inner">
-    <a href="#top" class="header__logo">TATUX <span>3D</span></a>
+    <a href="#top" class="header__logo">
+      <img src="/images/tatux-logo.png" alt="TATUX 3D" />
+    </a>
     <nav class="header__nav">
       <a href="#industrias">Industrias</a>
       <a href="#servicios">Servicios</a>
@@ -38,17 +40,15 @@
   }
 
   .header__logo {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    text-decoration: none;
-    color: var(--color-blue-deep);
-    letter-spacing: 0.02em;
-    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
     flex-shrink: 0;
   }
 
-  .header__logo span {
-    color: var(--color-blue-electric);
+  .header__logo img {
+    height: 26px;
+    width: auto;
+    display: block;
   }
 
   .header__nav {
@@ -80,8 +80,8 @@
   }
 
   @media (min-width: 480px) {
-    .header__logo {
-      font-size: 1.4rem;
+    .header__logo img {
+      height: 32px;
     }
 
     .header__cta {

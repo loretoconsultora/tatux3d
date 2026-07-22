@@ -1,36 +1,13 @@
----
-const testimonials = [
-  {
-    quote: "Pasé de 60 a 500 pantallas por mes gracias a su producción en serie.",
-    story:
-      "Fernando buscaba un proveedor confiable para su negocio de iluminación, capaz de producir 60 pantallas semanales para el armado de sus lámparas. No solo le cotizamos los modelos que ya tenía desarrollados, sino que además diseñamos nuevas propuestas a medida. Hoy fabricamos para él alrededor de 500 pantallas por mes.",
-  },
-  {
-    quote: "Me diseñaron desde 0 nuestro producto, hoy producimos semanalmente.",
-    story:
-      "Alejandro necesitaba bases especiales para placas y relojes, productos que comercializa como souvenirs y merchandising. Como esas piezas no existían en el mercado, se acercó a nosotros con su idea. Diseñamos el modelo desde cero y actualmente producimos semanalmente las cantidades que necesita.",
-  },
-  {
-    quote: "Entregamos 260 souvenirs personalizados en menos de un mes.",
-    story:
-      "Leah necesitaba un souvenir personalizado para un grupo de 260 chicos, que incluyera el logo de la organización y permitiera colocar una foto de cada participante. Desarrollamos varias propuestas iniciales y, tras realizar algunas muestras, llegamos al producto final que cumplió con todos sus requisitos en tiempo y forma.",
-  },
-];
----
-
 <section id="casos" class="section testimonials">
   <div class="container">
     <h2 class="testimonials__title">Aliados que dejaron de reaccionar y ahora lideran su mercado</h2>
-    <div class="testimonials__grid">
-      {
-        testimonials.map((t) => (
-          <blockquote class="card-soft testimonials__card">
-            <p class="testimonials__quote">“{t.quote}”</p>
-            <p class="testimonials__story">{t.story}</p>
-          </blockquote>
-        ))
-      }
-    </div>
+
+    <img
+      src="/images/testimonials-collage.png"
+      alt="Reseñas de clientes de TATUX 3D"
+      class="testimonials__collage"
+    />
+
     <div class="testimonials__cta">
       <button type="button" class="btn btn-solid" data-open-modal="booking">Ser el siguiente caso de éxito</button>
     </div>
@@ -47,35 +24,13 @@ const testimonials = [
     text-align: center;
   }
 
-  .testimonials__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
-    margin: 0;
-  }
-
-  .testimonials__card {
-    margin: 0;
+  .testimonials__collage {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 1100px;
+    margin-inline: auto;
     border-radius: var(--radius-lg);
-    padding: 28px 24px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-
-  .testimonials__card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .testimonials__quote {
-    font-weight: 700;
-    color: var(--color-blue-electric);
-    font-size: 1.05rem;
-    margin-bottom: 16px;
-  }
-
-  .testimonials__story {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
   }
 
   .testimonials__cta {

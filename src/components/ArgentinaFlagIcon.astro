@@ -1,0 +1,57 @@
+---
+interface Props {
+  size?: string;
+}
+
+const { size = "1.2em" } = Astro.props;
+---
+
+<svg
+  class="ar-flag"
+  viewBox="0 0 512 512"
+  width={size}
+  height={size}
+  aria-label="Argentina"
+  role="img"
+>
+  <defs>
+    <clipPath id="ar-flag-clip">
+      <rect x="0" y="0" width="512" height="512" rx="96" ry="96"></rect>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#ar-flag-clip)">
+    <rect x="0" y="0" width="512" height="512" fill="#f2f2f2"></rect>
+    <rect x="0" y="0" width="512" height="170.7" fill="#84aaf4"></rect>
+    <rect x="0" y="341.3" width="512" height="170.7" fill="#84aaf4"></rect>
+
+    <g transform="translate(256 256)">
+      {
+        Array.from({ length: 16 }).map((_, i) => {
+          const angle = (360 / 16) * i;
+          const length = i % 2 === 0 ? 78 : 58;
+          return (
+            <rect
+              x="-8"
+              y={-length}
+              width="16"
+              height={length - 34}
+              rx="7"
+              fill="#f2a03d"
+              transform={`rotate(${angle})`}
+            />
+          );
+        })
+      }
+      <circle r="38" fill="#ffd85e"></circle>
+    </g>
+  </g>
+</svg>
+
+<style>
+  .ar-flag {
+    display: inline-block;
+    vertical-align: -0.15em;
+    flex-shrink: 0;
+  }
+</style>
