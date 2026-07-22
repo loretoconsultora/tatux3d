@@ -90,6 +90,11 @@ const calendlyId = `${formId}-calendly`;
     document.head.appendChild(script);
   }
 
+  // Start fetching Calendly's widget script as soon as the page loads
+  // instead of waiting for the form submit, so it's already cached and
+  // ready by the time someone reaches the scheduler.
+  loadCalendlyAssets(() => {});
+
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
