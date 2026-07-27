@@ -5,6 +5,7 @@
   <div class="container header__inner">
     <a href="#top" class="header__logo">
       <img src="/images/tatux-logo.png" alt="TATUX 3D" />
+      <span class="header__tagline">Granja de Impresión 3D</span>
     </a>
     <nav class="header__nav">
       <a href="#industrias">Industrias</a>
@@ -43,12 +44,24 @@
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
+    text-decoration: none;
   }
 
   .header__logo img {
     height: 26px;
     width: auto;
     display: block;
+  }
+
+  .header__tagline {
+    display: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    padding-left: 12px;
+    margin-left: 12px;
+    border-left: 1px solid var(--color-border);
+    white-space: nowrap;
   }
 
   .header__nav {
@@ -94,6 +107,12 @@
     }
 
     .header__cta-full {
+      display: inline;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .header__tagline {
       display: inline;
     }
   }
