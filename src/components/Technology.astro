@@ -1,17 +1,20 @@
 ---
+import { siteConfig } from "../data/site";
+
+const { stats } = siteConfig;
 const items = [
   { title: "Desarrollo de producto", detail: "Diseño industrial de tu pieza, de la idea a la producción.", image: "/services/desarrollo-producto.jpg" },
-  { title: "Producción en serie", detail: "Contamos con más de 30 impresoras 3D.", image: "/services/produccion-serie.jpg" },
-  { title: "Impresión Multicolor", detail: "Piezas de hasta 4 colores.", image: "/services/multicolor.jpg" },
-  { title: "Materiales técnicos", detail: "Imprimimos en ABS y Nylon.", image: "/services/materiales-tecnicos.jpg" },
-  { title: "Impresión a Gran Escala", detail: "Piezas de hasta 1 metro de altura.", image: "/services/gran-escala.jpg" },
+  { title: "Producción en serie", detail: `Contamos con más de ${stats.printers} impresoras 3D.`, image: "/services/produccion-serie.jpg" },
+  { title: "Impresión Multicolor", detail: `Piezas de hasta ${stats.maxColors} colores.`, image: "/services/multicolor.jpg" },
+  { title: "Materiales técnicos", detail: `Imprimimos en ${stats.materials.join(" y ")}.`, image: "/services/materiales-tecnicos.jpg" },
+  { title: "Impresión a Gran Escala", detail: `Piezas de hasta ${stats.maxHeight} de altura.`, image: "/services/gran-escala.jpg" },
 ];
 ---
 
 <section id="servicios" class="section tech aura-mint">
   <div class="container">
     <p class="eyebrow tech__eyebrow">Conocé nuestros servicios</p>
-    <h2 class="tech__title">La granja que acompaña a más de 100 empresas Argentinas</h2>
+    <h2 class="tech__title">La granja que acompaña a {stats.companies} empresas Argentinas</h2>
     <div class="tech__grid">
       {
         items.map((item) => (

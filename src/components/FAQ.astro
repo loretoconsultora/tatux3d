@@ -1,4 +1,7 @@
 ---
+import { siteConfig } from "../data/site";
+
+const { stats } = siteConfig;
 const faqs = [
   {
     q: "¿Tiempo de producción?",
@@ -14,7 +17,7 @@ const faqs = [
   },
   {
     q: "¿Qué materiales usan?",
-    a: "Imprimimos en ABS y Nylon, con piezas multicolor de hasta 4 colores y gran escala (hasta 1 metro de altura).",
+    a: `Imprimimos en ${stats.materials.join(" y ")}, con piezas multicolor de hasta ${stats.maxColors} colores y gran escala (hasta ${stats.maxHeight} de altura).`,
   },
   {
     q: "¿Hacen envíos?",

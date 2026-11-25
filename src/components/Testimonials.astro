@@ -1,15 +1,54 @@
+---
+import { siteConfig } from "../data/site";
+import { parseVideoUrl } from "../lib/video";
+
+// Solo se muestran los casos que tienen un video reconocible.
+const cases = siteConfig.cases
+  .map((item) => ({ ...item, video: parseVideoUrl(item.videoUrl) }))
+  .filter((item) => item.video.kind !== "none");
+---
+
 <section id="casos" class="section testimonials">
   <div class="container">
     <h2 class="testimonials__title">Aliados que dejaron de reaccionar y ahora lideran su mercado</h2>
+
+    {
+      cases.length > 0 && (
+        <div class="cases">
+          {cases.map((item) => (
+            <article class="card-soft cases__card">
+              <div class="cases__video">
+                {item.video.kind === "file" ? (
+                  <video src={item.video.src} controls preload="metadata" playsinline />
+                ) : item.video.kind === "youtube" || item.video.kind === "instagram" ? (
+                  <iframe
+                    src={item.video.embedUrl}
+                    title={item.title}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                  />
+                ) : null}
+              </div>
+              <div class="cases__body">
+                <h3 class="cases__title">{item.title}</h3>
+                <p class="cases__description">{item.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      )
+    }
 
     <img
       src="/images/testimonials-collage.png"
       alt="Reseñas de clientes de TATUX 3D"
       class="testimonials__collage"
+      loading="lazy"
     />
 
     <div class="testimonials__cta">
-      <button type="button" class="btn btn-solid" data-open-modal="booking">Ser el siguiente caso de éxito</button>
+      <button type="button" class="btn btn-solid" data-open-modal="booking" data-lead-origin="Contacto">Ser el siguiente caso de éxito</button>
     </div>
   </div>
 </section>
@@ -22,6 +61,64 @@
     max-width: 720px;
     margin-inline: auto;
     text-align: center;
+  }
+
+  .cases {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  @media (min-width: 640px) {
+    .cases {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .cases {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .cases__card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cases__video {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    max-height: 560px;
+    width: 100%;
+    background: var(--color-blue-deep);
+  }
+
+  .cases__video iframe,
+  .cases__video video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .cases__body {
+    padding: 20px 24px 24px;
+  }
+
+  .cases__title {
+    font-size: 1.05rem;
+    color: var(--color-blue-deep);
+    margin-bottom: 8px;
+  }
+
+  .cases__description {
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
   }
 
   .testimonials__collage {

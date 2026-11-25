@@ -1,0 +1,61 @@
+---
+import { siteConfig } from "../data/site";
+import { parseVideoUrl } from "../lib/video";
+
+// Uses the new hero video when it's set; falls back to the previous one.
+const source = parseVideoUrl(siteConfig.heroVideoUrl || siteConfig.heroVideoFallbackUrl);
+const poster = siteConfig.heroVideoPoster;
+---
+
+<div class="hero-video">
+  {
+    source.kind === "file" && (
+      <video src={source.src} poster={poster} autoplay muted loop playsinline preload="metadata" aria-label="Video de TATUX 3D" />
+    )
+  }
+  {
+    source.kind === "youtube" && (
+      <iframe
+        src={`${source.embedUrl}?autoplay=1&mute=1&loop=1&playlist=${source.id}&playsinline=1&rel=0`}
+        title="Conocé TATUX 3D"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        style={`background-image: url('${poster}')`}
+      />
+    )
+  }
+  {
+    (source.kind === "none" || source.kind === "instagram") && (
+      <img src={poster} alt="Producción en TATUX 3D" />
+    )
+  }
+</div>
+
+<style>
+  .hero-video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-blue-glow);
+    background: var(--color-blue-deep);
+  }
+
+  .hero-video video,
+  .hero-video iframe,
+  .hero-video img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover;
+  }
+
+  .hero-video iframe {
+    background-size: cover;
+    background-position: center;
+  }
+</style>

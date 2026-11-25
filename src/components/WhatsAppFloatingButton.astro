@@ -1,7 +1,7 @@
 ---
-import { site } from "../data/site";
+import { siteConfig } from "../data/site";
 
-const href = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMessage)}`;
+const href = siteConfig.contact.whatsapp;
 ---
 
 <div class="whatsapp-widget">

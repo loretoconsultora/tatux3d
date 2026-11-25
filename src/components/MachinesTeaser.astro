@@ -1,0 +1,58 @@
+---
+import { siteConfig } from "../data/site";
+
+const { machines } = siteConfig;
+---
+
+<section id="maquinas" class="section machines-teaser aura-mint">
+  <div class="container">
+  <div class="machines-teaser__inner card-soft">
+    <div>
+      <p class="eyebrow machines-teaser__eyebrow">Venta de máquinas</p>
+      <h2 class="machines-teaser__title">{machines.teaserTitle}</h2>
+      <p class="machines-teaser__text">{machines.teaserText}</p>
+    </div>
+    <a href="/maquinas" class="btn btn-solid machines-teaser__cta">Ver máquinas</a>
+  </div>
+  </div>
+</section>
+
+<style>
+  .machines-teaser__inner {
+    border-radius: var(--radius-xl);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .machines-teaser__eyebrow {
+    color: var(--color-blue-electric);
+    margin-bottom: 8px;
+  }
+
+  .machines-teaser__title {
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    color: var(--color-blue-deep);
+  }
+
+  .machines-teaser__text {
+    color: var(--color-text-muted);
+    margin-top: 12px;
+    max-width: 640px;
+  }
+
+  .machines-teaser__cta {
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 800px) {
+    .machines-teaser__inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 44px 48px;
+    }
+  }
+</style>

@@ -1,0 +1,239 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import BookingModal from "../components/BookingModal.astro";
+import BookingFormCard from "../components/BookingFormCard.astro";
+import WhatsAppFloatingButton from "../components/WhatsAppFloatingButton.astro";
+import { siteConfig } from "../data/site";
+
+const { machines } = siteConfig;
+---
+
+<Layout
+  title="Máquinas | TATUX 3D"
+  description="Impresoras 3D con capacitación y soporte de TATUX 3D, la granja de impresión 3D que produce con ellas todos los días."
+>
+  <Header />
+
+  <main>
+    <section class="section machines-hero aura-blue-mint">
+      <div class="container machines-hero__inner">
+        <p class="eyebrow machines-hero__eyebrow">Venta de máquinas</p>
+        <h1 class="machines-hero__title">Impresoras 3D para tu propia producción</h1>
+        <p class="machines-hero__text">{machines.teaserText}</p>
+        <a href="#consulta" class="btn btn-solid">Consultar por una máquina</a>
+      </div>
+    </section>
+
+    <section class="section machines-list">
+      <div class="container">
+        <h2 class="machines-list__title">Modelos</h2>
+
+        {
+          machines.models.length > 0 ? (
+            <div class="machines-list__grid">
+              {machines.models.map((model) => (
+                <article class="card-soft machine-card">
+                  {model.image && (
+                    <div class="machine-card__photo">
+                      <img src={model.image} alt={model.name} loading="lazy" />
+                    </div>
+                  )}
+                  <div class="machine-card__body">
+                    <h3 class="machine-card__name">{model.name}</h3>
+                    <p class="machine-card__price">{model.price}</p>
+                    <p class="machine-card__description">{model.description}</p>
+                    {model.specs.length > 0 && (
+                      <ul class="machine-card__specs">
+                        {model.specs.map((spec) => <li>{spec}</li>)}
+                      </ul>
+                    )}
+                    <a href="#consulta" class="btn btn-outline machine-card__cta">Consultar</a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div class="card-soft machines-list__empty">
+              <p>Estamos preparando el catálogo de modelos. Dejanos tu consulta y te enviamos opciones y precios.</p>
+            </div>
+          )
+        }
+      </div>
+    </section>
+
+    <section class="section machines-support aura-mint">
+      <div class="container machines-support__grid">
+        <div class="card-soft machines-support__card">
+          <h2 class="machines-support__title">Capacitación</h2>
+          <p>{machines.training}</p>
+        </div>
+        <div class="card-soft machines-support__card">
+          <h2 class="machines-support__title">Soporte</h2>
+          <p>{machines.support}</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="consulta" class="section machines-form">
+      <div class="container machines-form__inner">
+        <BookingFormCard
+          formId="machines-form"
+          heading="Consultá por una máquina"
+          origin="Máquinas"
+          afterSubmit="message"
+          submitLabel="Enviar consulta"
+        />
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <BookingModal autoOpen={false} />
+  <WhatsAppFloatingButton />
+</Layout>
+
+<style>
+  .machines-hero__inner {
+    max-width: 760px;
+    margin-inline: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .machines-hero__eyebrow {
+    color: var(--color-blue-electric);
+  }
+
+  .machines-hero__title {
+    font-size: clamp(1.8rem, 4vw, 2.75rem);
+    color: var(--color-blue-deep);
+    line-height: 1.15;
+  }
+
+  .machines-hero__text {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+
+  .machines-list__title,
+  .machines-support__title {
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    color: var(--color-blue-deep);
+  }
+
+  .machines-list__title {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .machines-list__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  @media (min-width: 700px) {
+    .machines-list__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .machines-list__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .machine-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .machine-card__photo {
+    aspect-ratio: 4 / 3;
+    background: var(--color-bg-soft);
+  }
+
+  .machine-card__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .machine-card__body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .machine-card__name {
+    font-size: 1.15rem;
+    color: var(--color-blue-deep);
+  }
+
+  .machine-card__price {
+    font-weight: 700;
+    color: var(--color-blue-electric);
+  }
+
+  .machine-card__description,
+  .machine-card__specs {
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+  }
+
+  .machine-card__specs {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .machine-card__cta {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+
+  .machines-list__empty {
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    text-align: center;
+    color: var(--color-text-muted);
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .machines-support__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  @media (min-width: 760px) {
+    .machines-support__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .machines-support__card {
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--color-text-muted);
+  }
+
+  .machines-form__inner {
+    max-width: 560px;
+    margin-inline: auto;
+  }
+</style>

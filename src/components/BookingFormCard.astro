@@ -1,13 +1,27 @@
 ---
-import { site } from "../data/site";
+import { siteConfig, type LeadOrigin } from "../data/site";
 
 interface Props {
   formId: string;
   heading?: string;
+  /** Sección desde donde se envía el lead (se guarda en el CRM). */
+  origin?: LeadOrigin;
+  /** Qué pasa después de enviar: abrir Calendly o mostrar un mensaje. */
+  afterSubmit?: "calendly" | "message";
+  submitLabel?: string;
+  footnote?: string;
 }
 
-const { formId, heading = "Da el primer paso hoy" } = Astro.props;
+const {
+  formId,
+  heading = "Da el primer paso hoy",
+  origin = "Contacto",
+  afterSubmit = "calendly",
+  submitLabel = "Agendar Llamada de Cotización",
+  footnote = "Te contactamos en menos de 24 horas.",
+} = Astro.props;
 const errorId = `${formId}-error`;
+const successId = `${formId}-success`;
 const calendlyId = `${formId}-calendly`;
 ---
 
@@ -15,52 +29,99 @@ const calendlyId = `${formId}-calendly`;
   <h3 class="booking-card__title">{heading}</h3>
 
   <form id={formId} class="booking-card__form" novalidate>
+    <input type="hidden" name="origin" value={origin} data-lead-origin-input />
+
+    <!-- Honeypot anti-spam: invisible para personas, los bots lo completan. -->
+    <div class="booking-card__hp" aria-hidden="true">
+      <label for={`${formId}-website`}>No completar</label>
+      <input id={`${formId}-website`} name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+
     <div class="booking-card__field">
       <label for={`${formId}-name`}>Nombre completo</label>
-      <input id={`${formId}-name`} name="name" type="text" required autocomplete="name" placeholder="Tu nombre" />
+      <input id={`${formId}-name`} name="name" type="text" required maxlength="120" autocomplete="name" placeholder="Tu nombre" />
+    </div>
+    <div class="booking-card__row">
+      <div class="booking-card__field">
+        <label for={`${formId}-email`}>Email</label>
+        <input id={`${formId}-email`} name="email" type="email" required maxlength="200" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <div class="booking-card__field">
+        <label for={`${formId}-phone`}>WhatsApp</label>
+        <input id={`${formId}-phone`} name="phone" type="tel" required maxlength="40" autocomplete="tel" placeholder="+54 9 ..." />
+      </div>
     </div>
     <div class="booking-card__field">
-      <label for={`${formId}-email`}>Email</label>
-      <input id={`${formId}-email`} name="email" type="email" required autocomplete="email" placeholder="tu@email.com" />
-    </div>
-    <div class="booking-card__field">
-      <label for={`${formId}-phone`}>WhatsApp</label>
-      <input id={`${formId}-phone`} name="phone" type="tel" required autocomplete="tel" placeholder="+54 9 ..." />
+      <label for={`${formId}-company`}>Empresa <span class="booking-card__optional">(opcional)</span></label>
+      <input id={`${formId}-company`} name="company" type="text" maxlength="200" autocomplete="organization" placeholder="Nombre de tu empresa" />
     </div>
     <div class="booking-card__field">
       <label for={`${formId}-project`}>¿Qué necesitás producir?</label>
       <select id={`${formId}-project`} name="project" required>
         <option value="" selected disabled>Seleccioná una opción</option>
-        {site.projectOptions.map((option) => <option value={option.value}>{option.label}</option>)}
+        {siteConfig.projectOptions.map((option) => <option value={option.value}>{option.label}</option>)}
       </select>
+    </div>
+    <div class="booking-card__row">
+      <div class="booking-card__field">
+        <label for={`${formId}-quantity`}>Cantidad de piezas</label>
+        <input id={`${formId}-quantity`} name="quantity" type="number" inputmode="numeric" min="1" step="1" required placeholder="Ej: 50" />
+      </div>
+      <div class="booking-card__field">
+        <label for={`${formId}-urgency`}>¿Para cuándo lo necesitás?</label>
+        <select id={`${formId}-urgency`} name="urgency" required>
+          <option value="" selected disabled>Seleccioná</option>
+          {siteConfig.urgencyOptions.map((option) => <option value={option}>{option}</option>)}
+        </select>
+      </div>
+    </div>
+    <div class="booking-card__field">
+      <label for={`${formId}-message`}>Mensaje <span class="booking-card__optional">(opcional)</span></label>
+      <textarea id={`${formId}-message`} name="message" rows="3" maxlength="3000" placeholder="Contanos brevemente tu proyecto"></textarea>
     </div>
 
     <button type="submit" class="btn btn-solid booking-card__submit">
-      <span class="booking-card__submit-label">Agendar Llamada de Cotización</span>
+      <span class="booking-card__submit-label">{submitLabel}</span>
     </button>
   </form>
 
   <div id={calendlyId} class="booking-card__calendly-inline" hidden></div>
 
-  <p id={errorId} class="booking-card__error" hidden>Completá todos los campos para continuar.</p>
+  <div id={successId} class="booking-card__success" hidden>
+    <p class="booking-card__success-title">¡Gracias! Recibimos tu consulta.</p>
+    <p>Te contactamos en menos de 24 horas. Si es urgente, escribinos por <a href={siteConfig.contact.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a>.</p>
+  </div>
 
-  <p class="booking-card__footnote">Te contactamos en menos de 24 horas.</p>
+  <p id={errorId} class="booking-card__error" role="alert" hidden></p>
+
+  <p class="booking-card__footnote">{footnote}</p>
 </div>
 
 <script
   define:vars={{
     formId,
     errorId,
+    successId,
     calendlyId,
-    calendlyUrl: site.calendlyUrl,
-    registrationWebhookUrl: site.registrationWebhookUrl,
+    afterSubmit,
+    submitLabelText: submitLabel,
+    calendlyUrl: siteConfig.calendlyUrl,
+    leadEndpoint: siteConfig.leadEndpoint,
+    whatsappUrl: siteConfig.contact.whatsapp,
   }}
 >
   const form = document.getElementById(formId);
   const submitButton = form?.querySelector("button[type=submit]");
   const submitLabel = form?.querySelector(".booking-card__submit-label");
   const calendlyContainer = document.getElementById(calendlyId);
+  const successMessage = document.getElementById(successId);
   const errorMessage = document.getElementById(errorId);
+  const card = form?.closest(".booking-card");
+
+  function showError(html) {
+    errorMessage.innerHTML = html;
+    errorMessage.hidden = false;
+  }
 
   function loadCalendlyAssets(onReady) {
     if (window.Calendly) {
@@ -90,52 +151,82 @@ const calendlyId = `${formId}-calendly`;
     document.head.appendChild(script);
   }
 
-  // Start fetching Calendly's widget script as soon as the page loads
-  // instead of waiting for the form submit, so it's already cached and
-  // ready by the time someone reaches the scheduler.
-  loadCalendlyAssets(() => {});
+  // Pre-cargamos Calendly para que esté listo al terminar el formulario.
+  if (afterSubmit === "calendly") loadCalendlyAssets(() => {});
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const data = new FormData(form);
-    const name = String(data.get("name") || "").trim();
-    const email = String(data.get("email") || "").trim();
-    const phone = String(data.get("phone") || "").trim();
-    const project = String(data.get("project") || "").trim();
+    const value = (key) => String(data.get(key) || "").trim();
+    const payload = {
+      name: value("name"),
+      email: value("email"),
+      phone: value("phone"),
+      company: value("company"),
+      project: value("project"),
+      quantity: value("quantity"),
+      urgency: value("urgency"),
+      message: value("message"),
+      origin: value("origin"),
+      website: value("website"),
+      page: window.location.href,
+    };
 
-    if (!name || !email || !phone || !project) {
-      errorMessage.hidden = false;
+    const quantity = Number(payload.quantity);
+    if (!payload.name || !payload.email || !payload.phone || !payload.project || !payload.urgency) {
+      showError("Completá todos los campos obligatorios para continuar.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+      showError("Revisá el email: parece que no es válido.");
+      return;
+    }
+    if (!Number.isInteger(quantity) || quantity < 1) {
+      showError("La cantidad de piezas tiene que ser un número entero, mínimo 1.");
       return;
     }
 
     errorMessage.hidden = true;
     submitButton.disabled = true;
-    submitLabel.textContent = "Registrando...";
+    submitLabel.textContent = "Enviando...";
 
-    // Registers the lead in the n8n webhook (which writes to the shared
-    // spreadsheet and sends the email notification) before showing the
-    // Calendly picker. If the webhook is unreachable we still let the user
-    // book, so a n8n outage never blocks someone from scheduling a call.
+    let result = null;
     try {
-      await fetch(registrationWebhookUrl, {
+      const response = await fetch(leadEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, project, source: "tatux3d.com" }),
+        body: JSON.stringify(payload),
       });
+      result = await response.json().catch(() => null);
+      if (!response.ok || !result?.ok) throw new Error(result?.message || `HTTP ${response.status}`);
     } catch (err) {
-      console.error("No se pudo registrar el lead en el webhook:", err);
+      console.error("No se pudo enviar el formulario:", err);
+      submitButton.disabled = false;
+      submitLabel.textContent = submitLabelText;
+      const serverMessage = result?.message ? `${result.message} ` : "No pudimos enviar tu consulta. ";
+      showError(
+        `${serverMessage}Probá de nuevo en unos minutos o escribinos por <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer">WhatsApp</a>.`,
+      );
+      return;
     }
 
     form.hidden = true;
+
+    if (afterSubmit === "message") {
+      successMessage.hidden = false;
+      card?.classList.add("booking-card--done");
+      return;
+    }
+
     calendlyContainer.hidden = false;
-    calendlyContainer.closest(".booking-card")?.classList.add("booking-card--calendly-active");
+    card?.classList.add("booking-card--calendly-active");
 
     loadCalendlyAssets(() => {
       window.Calendly.initInlineWidget({
         url: calendlyUrl,
         parentElement: calendlyContainer,
-        prefill: { name, email },
+        prefill: { name: payload.name, email: payload.email },
       });
     });
   });
@@ -172,10 +263,23 @@ const calendlyId = `${formId}-calendly`;
     gap: 14px;
   }
 
+  .booking-card__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  @media (min-width: 520px) {
+    .booking-card__row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
   .booking-card__field {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    min-width: 0;
   }
 
   .booking-card__field label {
@@ -184,8 +288,14 @@ const calendlyId = `${formId}-calendly`;
     color: var(--color-blue-deep);
   }
 
+  .booking-card__optional {
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+
   .booking-card__field input,
-  .booking-card__field select {
+  .booking-card__field select,
+  .booking-card__field textarea {
     width: 100%;
     min-width: 0;
     max-width: 100%;
@@ -199,11 +309,25 @@ const calendlyId = `${formId}-calendly`;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
+  .booking-card__field textarea {
+    resize: vertical;
+    min-height: 84px;
+  }
+
   .booking-card__field input:focus,
-  .booking-card__field select:focus {
+  .booking-card__field select:focus,
+  .booking-card__field textarea:focus {
     outline: none;
     border-color: var(--color-blue-electric);
     box-shadow: 0 0 0 4px rgba(3, 42, 242, 0.12);
+  }
+
+  .booking-card__hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
 
   .booking-card__submit {
@@ -218,11 +342,29 @@ const calendlyId = `${formId}-calendly`;
     margin-top: 4px;
   }
 
+  .booking-card__success {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--color-text);
+  }
+
+  .booking-card__success-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-blue-electric);
+  }
+
   .booking-card__error {
     color: #d1350f;
     font-weight: 700;
     font-size: 0.85rem;
     margin-top: 8px;
+  }
+
+  .booking-card__error :global(a),
+  .booking-card__success a {
+    color: var(--color-blue-electric);
   }
 
   .booking-card__footnote {
@@ -232,7 +374,8 @@ const calendlyId = `${formId}-calendly`;
     color: var(--color-text-muted);
   }
 
-  .booking-card--calendly-active .booking-card__footnote {
+  .booking-card--calendly-active .booking-card__footnote,
+  .booking-card--done .booking-card__footnote {
     display: none;
   }
 </style>

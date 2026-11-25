@@ -1,5 +1,8 @@
 ---
-import { site } from "../data/site";
+import { siteConfig } from "../data/site";
+import { parseVideoUrl } from "../lib/video";
+
+const fallback = parseVideoUrl(siteConfig.heroVideoFallbackUrl);
 
 interface Props {
   videoId?: string;
@@ -8,7 +11,7 @@ interface Props {
 }
 
 const {
-  videoId = site.introVideoId,
+  videoId = fallback.kind === "youtube" ? fallback.id : "",
   title = "Conocé a Iair, el fundador de TATUX 3D",
   aspectRatio = "16/9",
 } = Astro.props;

@@ -1,12 +1,19 @@
 ---
 import BookingFormCard from "./BookingFormCard.astro";
+
+interface Props {
+  /** Abrir el modal solo 3 s después de cargar (una vez por sesión). */
+  autoOpen?: boolean;
+}
+
+const { autoOpen = true } = Astro.props;
 ---
 
-<div id="booking-modal" class="booking-modal" hidden>
+<div id="booking-modal" class="booking-modal" data-auto-open={autoOpen ? "true" : "false"} hidden>
   <div class="booking-modal__overlay" data-close-modal></div>
   <div class="booking-modal__dialog" role="dialog" aria-modal="true" aria-label="Agendar Llamada">
     <button type="button" class="booking-modal__close" data-close-modal aria-label="Cerrar">&times;</button>
-    <BookingFormCard formId="modal-booking" heading="Producción en tiempo récord" />
+    <BookingFormCard formId="modal-booking" heading="Producción en tiempo récord" origin="Contacto" />
   </div>
 </div>
 
@@ -14,7 +21,11 @@ import BookingFormCard from "./BookingFormCard.astro";
   const modal = document.getElementById("booking-modal");
   if (!modal) throw new Error("#booking-modal not found");
 
-  const openModal = () => {
+  const originInput = modal.querySelector<HTMLInputElement>("[data-lead-origin-input]");
+
+  // Cada botón puede indicar su origen (data-lead-origin="Granjas"); por defecto "Contacto".
+  const openModal = (origin = "Contacto") => {
+    if (originInput) originInput.value = origin;
     modal.hidden = false;
     document.body.style.overflow = "hidden";
   };
@@ -27,9 +38,10 @@ import BookingFormCard from "./BookingFormCard.astro";
   document.addEventListener("click", (event) => {
     const target = event.target as HTMLElement;
 
-    if (target.closest("[data-open-modal='booking']")) {
+    const trigger = target.closest<HTMLElement>("[data-open-modal='booking']");
+    if (trigger) {
       event.preventDefault();
-      openModal();
+      openModal(trigger.dataset.leadOrigin || "Contacto");
       return;
     }
 
@@ -47,10 +59,16 @@ import BookingFormCard from "./BookingFormCard.astro";
   // Auto-open once per browser session, 3s after the page loads, unless the
   // visitor already opened or dismissed it.
   const AUTO_OPEN_KEY = "tatux-welcome-modal-shown";
-  if (!sessionStorage.getItem(AUTO_OPEN_KEY)) {
+  let alreadyShown = false;
+  try {
+    alreadyShown = Boolean(sessionStorage.getItem(AUTO_OPEN_KEY));
+  } catch {}
+  if (modal.dataset.autoOpen === "true" && !alreadyShown) {
     setTimeout(() => {
       if (modal.hidden) openModal();
-      sessionStorage.setItem(AUTO_OPEN_KEY, "1");
+      try {
+        sessionStorage.setItem(AUTO_OPEN_KEY, "1");
+      } catch {}
     }, 3000);
   }
 </script>

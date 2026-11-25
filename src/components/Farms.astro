@@ -1,0 +1,133 @@
+---
+import { siteConfig } from "../data/site";
+
+const { farms, contact } = siteConfig;
+---
+
+<section id="granjas" class="section farms">
+  <div class="container farms__inner">
+    <div class="farms__content">
+      <p class="eyebrow farms__eyebrow">Para granjas de impresión 3D</p>
+      <h2 class="farms__title">{farms.title}</h2>
+      <p class="farms__subtitle">{farms.subtitle}</p>
+    </div>
+
+    <div class="card-soft farms__card">
+      <ul class="farms__points">
+        {farms.points.map((point) => <li>{point}</li>)}
+      </ul>
+
+      {
+        farms.conditions.length > 0 && (
+          <div class="farms__conditions">
+            <p class="farms__conditions-title">Condiciones</p>
+            <ul>
+              {farms.conditions.map((condition) => <li>{condition}</li>)}
+            </ul>
+          </div>
+        )
+      }
+
+      <div class="farms__ctas">
+        <button type="button" class="btn btn-solid" data-open-modal="booking" data-lead-origin="Granjas">{farms.cta}</button>
+        <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" class="btn btn-outline">Hablar por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .farms {
+    background: var(--color-bg-soft);
+  }
+
+  .farms__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+  }
+
+  .farms__eyebrow {
+    color: var(--color-blue-electric);
+    margin-bottom: 8px;
+  }
+
+  .farms__title {
+    font-size: clamp(1.5rem, 3vw, 2.15rem);
+    color: var(--color-blue-deep);
+    line-height: 1.2;
+  }
+
+  .farms__subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    margin-top: 16px;
+    max-width: 520px;
+  }
+
+  .farms__card {
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .farms__points {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .farms__points li {
+    position: relative;
+    padding-left: 34px;
+    font-weight: 700;
+    color: var(--color-blue-deep);
+  }
+
+  .farms__points li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-green-neon);
+    color: var(--color-blue-deep);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .farms__conditions-title {
+    font-weight: 700;
+    color: var(--color-blue-deep);
+    margin-bottom: 6px;
+  }
+
+  .farms__conditions ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--color-text-muted);
+  }
+
+  .farms__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  @media (min-width: 900px) {
+    .farms__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 56px;
+    }
+  }
+</style>

@@ -1,10 +1,10 @@
 ---
-import { site } from "../data/site";
-import VideoSlot from "./VideoSlot.astro";
+import { siteConfig } from "../data/site";
+import HeroVideo from "./HeroVideo.astro";
 import BookingFormCard from "./BookingFormCard.astro";
 import ArgentinaFlagIcon from "./ArgentinaFlagIcon.astro";
 
-const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMessage)}`;
+const whatsappHref = siteConfig.contact.whatsapp;
 ---
 
 <section id="top" class="hero aura-blue-mint">
@@ -42,10 +42,10 @@ const whatsappHref = `${site.whatsapp}?text=${encodeURIComponent(site.whatsappMe
 
     <div class="hero__panel">
       <div class="hero__video-slot">
-        <VideoSlot />
+        <HeroVideo />
       </div>
       <div class="hero__form-slot">
-        <BookingFormCard formId="hero-booking" />
+        <BookingFormCard formId="hero-booking" origin="Hero" />
       </div>
     </div>
   </div>

@@ -1,0 +1,104 @@
+---
+import { siteConfig } from "../data/site";
+import { parseVideoUrl } from "../lib/video";
+
+const video = parseVideoUrl(siteConfig.interviewVideoUrl);
+---
+
+<section id="entrevista" class="section interview aura-blue">
+  <div class="container interview__inner">
+    <h2 class="interview__title">Conocé más de TATUX 3D</h2>
+
+    <div class="interview__frame">
+      {
+        video.kind === "youtube" ? (
+          <iframe
+            src={`${video.embedUrl}?rel=0`}
+            title="Entrevista a Iair, fundador de TATUX 3D"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          />
+        ) : video.kind === "file" ? (
+          <video src={video.src} controls preload="metadata" playsinline />
+        ) : (
+          <div class="interview__placeholder">
+            <span class="interview__play" aria-hidden="true">▶</span>
+            <p>Próximamente: conocé a Iair y a TATUX 3D</p>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .interview__inner {
+    max-width: 960px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .interview__title {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    color: var(--color-blue-deep);
+    text-align: center;
+  }
+
+  .interview__frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-blue-glow);
+    background: var(--color-blue-deep);
+  }
+
+  .interview__frame iframe,
+  .interview__frame video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .interview__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    text-align: center;
+    color: #ffffff;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(3, 42, 242, 0.7), transparent 55%),
+      radial-gradient(circle at 85% 85%, rgba(64, 255, 159, 0.35), transparent 50%),
+      var(--color-blue-deep);
+  }
+
+  .interview__placeholder p {
+    font-weight: 700;
+    font-size: clamp(1rem, 2.4vw, 1.35rem);
+  }
+
+  .interview__play {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    font-size: 1.4rem;
+    padding-left: 4px;
+  }
+</style>
