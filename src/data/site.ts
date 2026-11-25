@@ -74,7 +74,7 @@ export const siteConfig = {
   // un link de YouTube o de Instagram. Solo el .mp4 permite autoplay
   // silenciado + loop; Instagram se muestra con su reproductor.
   // Vacío = se muestra el video anterior (heroVideoFallbackUrl).
-  heroVideoUrl: "https://www.instagram.com/p/Dez9L6MFYpn/",
+  heroVideoUrl: "https://youtu.be/F18dNYVsYVQ",
   heroVideoFallbackUrl: "https://youtu.be/F18dNYVsYVQ",
   heroVideoPoster: "/services/produccion-serie.jpg",
 
