@@ -24,7 +24,7 @@ Después de cargarlas hay que hacer **Redeploy** para que se apliquen.
 
 ### Base de datos de Notion (CRM)
 
-Crear la base con estas propiedades (nombres exactos) y compartirla con la integración
+Ya creada en Notion como "CRM Leads — TATUX 3D". Si hay que rehacerla, crear la base con estas propiedades (nombres exactos) y compartirla con la integración
 (… → Conexiones → agregar la integración):
 
 | Propiedad | Tipo |
@@ -33,12 +33,14 @@ Crear la base con estas propiedades (nombres exactos) y compartirla con la integ
 | Email | Email |
 | Teléfono | Teléfono |
 | Empresa | Texto |
+| Qué necesita producir | Select: Prototipo o pieza única · Producción en serie · Repuesto o pieza descontinuada · Todavía no lo sé |
 | Mensaje | Texto |
 | Cantidad de piezas | Número |
-| Urgencia | Select: Urgente (menos de 1 semana) · 1 a 2 semanas · Dentro del mes · Estoy cotizando, sin apuro |
+| Urgencia | Select: Urgente (menos de 1 semana) · 1 a 2 semanas · Dentro del mes · Estoy cotizando sin apuro (sin coma: Notion no las admite) |
 | Origen | Select: Contacto · Máquinas · Granjas · Hero |
 | Estado | Select: Nuevo · Contactado · Cotizado · Ganado · Perdido |
 | Fecha de ingreso | Fecha |
+| Página | URL |
 
 ## Desarrollo
 
