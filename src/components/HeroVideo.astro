@@ -7,7 +7,7 @@ const source = parseVideoUrl(siteConfig.heroVideoUrl || siteConfig.heroVideoFall
 const poster = siteConfig.heroVideoPoster;
 ---
 
-<div class="hero-video">
+<div class={`hero-video hero-video--${source.kind}`}>
   {
     source.kind === "file" && (
       <video src={source.src} poster={poster} autoplay muted loop playsinline preload="metadata" aria-label="Video de TATUX 3D" />
@@ -26,7 +26,12 @@ const poster = siteConfig.heroVideoPoster;
     )
   }
   {
-    (source.kind === "none" || source.kind === "instagram") && (
+    source.kind === "instagram" && (
+      <iframe src={source.embedUrl} title="Conocé TATUX 3D" loading="lazy" scrolling="no" allowfullscreen />
+    )
+  }
+  {
+    source.kind === "none" && (
       <img src={poster} alt="Producción en TATUX 3D" />
     )
   }
@@ -52,6 +57,15 @@ const poster = siteConfig.heroVideoPoster;
     height: 100%;
     border: 0;
     object-fit: cover;
+  }
+
+  /* Instagram: su reproductor es vertical e incluye cabecera y pie. */
+  .hero-video--instagram {
+    aspect-ratio: auto;
+    height: 620px;
+    max-width: 400px;
+    margin-inline: auto;
+    background: #ffffff;
   }
 
   .hero-video iframe {

@@ -71,7 +71,7 @@ const calendlyId = `${formId}-calendly`;
         <label for={`${formId}-urgency`}>¿Para cuándo lo necesitás?</label>
         <select id={`${formId}-urgency`} name="urgency" required>
           <option value="" selected disabled>Seleccioná</option>
-          {siteConfig.urgencyOptions.map((option) => <option value={option}>{option}</option>)}
+          {siteConfig.urgencyOptions.map((option) => <option value={option.value}>{option.label}</option>)}
         </select>
       </div>
     </div>

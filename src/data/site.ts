@@ -58,19 +58,21 @@ export const siteConfig = {
     { value: "Repuesto o pieza descontinuada", label: "Repuesto o pieza descontinuada" },
     { value: "Todavía no lo sé", label: "Todavía no lo sé" },
   ],
+  // value = lo que se guarda en Notion (los selects de Notion no admiten comas).
   urgencyOptions: [
-    "Urgente (menos de 1 semana)",
-    "1 a 2 semanas",
-    "Dentro del mes",
-    "Estoy cotizando, sin apuro",
+    { value: "Urgente (menos de 1 semana)", label: "Urgente (menos de 1 semana)" },
+    { value: "1 a 2 semanas", label: "1 a 2 semanas" },
+    { value: "Dentro del mes", label: "Dentro del mes" },
+    { value: "Estoy cotizando sin apuro", label: "Estoy cotizando, sin apuro" },
   ],
   leadOrigins: ["Contacto", "Máquinas", "Granjas", "Hero"] as LeadOrigin[],
 
   // ── Video del hero ────────────────────────────────────────────────────────
-  // PENDIENTE: link o archivo del video nuevo. Acepta un .mp4/.webm (subilo a
-  // /public/videos/ y poné "/videos/hero.mp4") o un link de YouTube.
-  // Mientras esté vacío se muestra el video anterior (heroVideoFallbackUrl).
-  heroVideoUrl: "",
+  // Acepta un .mp4/.webm (subilo a /public/videos/ y poné "/videos/hero.mp4"),
+  // un link de YouTube o de Instagram. Solo el .mp4 permite autoplay
+  // silenciado + loop; Instagram se muestra con su reproductor.
+  // Vacío = se muestra el video anterior (heroVideoFallbackUrl).
+  heroVideoUrl: "https://www.instagram.com/p/Dez9L6MFYpn/",
   heroVideoFallbackUrl: "https://youtu.be/F18dNYVsYVQ",
   heroVideoPoster: "/services/produccion-serie.jpg",
 
@@ -82,10 +84,51 @@ export const siteConfig = {
   bookingVideoId: "gsOjSXkNw_g",
 
   // ── Casos de éxito con video ──────────────────────────────────────────────
-  // PENDIENTE: links de los reels + descripciones. Ejemplo:
-  // { title: "Merch para Empresa X", videoUrl: "https://youtube.com/shorts/XXXX",
-  //   description: "Produjimos 500 llaveros en 4 colores en 10 días." },
-  cases: [] as CaseItem[],
+  // Se muestran como carrusel horizontal, en este orden.
+  cases: [
+    {
+      title: "Soporte giratorio para tablets",
+      videoUrl: "https://www.instagram.com/p/Df9xK5avLD9/",
+      description:
+        "De un soporte enorme que no convencía a uno optimizado, firme y giratorio 🔄📱 Lo diseñamos, lo probamos y ajustamos hasta que la tablet entró a la perfección. ¡15 unidades listas para las mesas de nuestro cliente! 🍴✨",
+    },
+    {
+      title: "Contenedores a medida para un dispenser",
+      videoUrl: "https://www.instagram.com/p/DfqHHXDtWkH/",
+      description:
+        "Las piezas que nadie ve, pero que hacen que todo funcione 💧⚙️ Para este dispenser hicimos contenedores a medida, con el material justo para aguantar el agua caliente 🔥",
+    },
+    {
+      title: "Soporte de hilo dental con Desta Tools",
+      videoUrl: "https://www.instagram.com/p/DfR9R2-x-DG/",
+      description:
+        "200 piezas, un producto listo para vender 🦷✨ Así se hizo realidad este soporte de hilo dental con forma de muela, en colaboración con Desta Tools 🤝",
+    },
+    {
+      title: "De una imagen con IA a 200 esculturas",
+      videoUrl: "https://www.instagram.com/p/DfFp-1Rulp0/",
+      description:
+        "De una imagen hecha con IA a 200 esculturas realistas 🤯 Ahora imaginá lo que podemos hacer con tu idea: muñecos de acción, figuras de tus personajes favoritos, juguetes personalizados 🧸✨",
+    },
+    {
+      title: "1.600 piezas para 200 abanicos",
+      videoUrl: "https://www.instagram.com/p/De_46Y6IHJy/",
+      description:
+        "1.600 piezas para 200 abanicos: ese fue el desafío 🪭 Los abanicos volvieron con todo, y cuando un producto se lanza al mercado, los detalles hacen la diferencia ✨",
+    },
+    {
+      title: "De una pieza a 3.000 para clubes",
+      videoUrl: "https://www.instagram.com/p/DduXTslgWKA/",
+      description:
+        "Un cliente nos escribió por una pieza para enganchar las redes de los arcos de su club ⚽ La diseñamos, elegimos un material que aguante sol y pelotazos y validamos con una pieza de prueba 🖨️ Después vio la oportunidad y nos pidió 3.000 más para vender en otros clubes 📈",
+    },
+    {
+      title: "Regalos corporativos que se guardan",
+      videoUrl: "https://www.instagram.com/p/DeAL402iAwT/",
+      description:
+        "No todos los regalos corporativos terminan en un cajón 👇 Cuando el objeto tiene sentido para quien lo recibe, deja de ser \"otro regalo más\" y pasa a ser algo que la gente guarda con cariño.",
+    },
+  ] as CaseItem[],
 
   // ── Granjas de impresión 3D ───────────────────────────────────────────────
   farms: {

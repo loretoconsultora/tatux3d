@@ -51,7 +51,7 @@ function validate(body: Record<string, unknown>): { lead?: Lead; error?: string 
   if (phone.replace(/\D/g, "").length < 6) return { error: "El teléfono no es válido." };
   if (!Number.isInteger(quantity) || quantity < 1 || quantity > 10_000_000)
     return { error: "La cantidad de piezas tiene que ser un número entero, mínimo 1." };
-  if (!siteConfig.urgencyOptions.includes(urgency)) return { error: "Elegí para cuándo lo necesitás." };
+  if (!siteConfig.urgencyOptions.some((option) => option.value === urgency)) return { error: "Elegí para cuándo lo necesitás." };
   if (project && !siteConfig.projectOptions.some((option) => option.value === project))
     return { error: "Elegí qué necesitás producir." };
 
@@ -134,10 +134,6 @@ async function createNotionRow(lead: Lead) {
   const { NOTION_TOKEN, NOTION_DB_ID } = process.env;
   if (!NOTION_TOKEN || !NOTION_DB_ID) throw new Error("Faltan variables de entorno de Notion (NOTION_TOKEN, NOTION_DB_ID).");
 
-  const mensaje = [lead.project && `Qué necesita producir: ${lead.project}`, lead.message, lead.page && `Página: ${lead.page}`]
-    .filter(Boolean)
-    .join("\n\n");
-
   const response = await fetch("https://api.notion.com/v1/pages", {
     method: "POST",
     headers: {
@@ -152,7 +148,9 @@ async function createNotionRow(lead: Lead) {
         Email: { email: lead.email },
         "Teléfono": { phone_number: lead.phone },
         Empresa: { rich_text: richText(lead.company) },
-        Mensaje: { rich_text: richText(mensaje) },
+        Mensaje: { rich_text: richText(lead.message) },
+        "Qué necesita producir": lead.project ? { select: { name: lead.project } } : { select: null },
+        "Página": { url: lead.page || null },
         "Cantidad de piezas": { number: lead.quantity },
         Urgencia: { select: { name: lead.urgency } },
         Origen: { select: { name: lead.origin } },

@@ -14,28 +14,35 @@ const cases = siteConfig.cases
 
     {
       cases.length > 0 && (
-        <div class="cases">
-          {cases.map((item) => (
-            <article class="card-soft cases__card">
-              <div class="cases__video">
-                {item.video.kind === "file" ? (
-                  <video src={item.video.src} controls preload="metadata" playsinline />
-                ) : item.video.kind === "youtube" || item.video.kind === "instagram" ? (
-                  <iframe
-                    src={item.video.embedUrl}
-                    title={item.title}
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen
-                  />
-                ) : null}
-              </div>
-              <div class="cases__body">
-                <h3 class="cases__title">{item.title}</h3>
-                <p class="cases__description">{item.description}</p>
-              </div>
-            </article>
-          ))}
+        <div class="cases" data-cases-carousel>
+          <div class="cases__track" tabindex="0" aria-label="Casos de éxito">
+            {cases.map((item) => (
+              <article class="card-soft cases__card">
+                <div class={`cases__video cases__video--${item.video.kind}`}>
+                  {item.video.kind === "file" ? (
+                    <video src={item.video.src} controls preload="metadata" playsinline />
+                  ) : item.video.kind === "youtube" || item.video.kind === "instagram" ? (
+                    <iframe
+                      src={item.video.embedUrl}
+                      title={item.title}
+                      loading="lazy"
+                      scrolling="no"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    />
+                  ) : null}
+                </div>
+                <div class="cases__body">
+                  <h3 class="cases__title">{item.title}</h3>
+                  <p class="cases__description">{item.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div class="cases__nav">
+            <button type="button" class="cases__arrow" data-cases-prev aria-label="Caso anterior">&larr;</button>
+            <button type="button" class="cases__arrow" data-cases-next aria-label="Caso siguiente">&rarr;</button>
+          </div>
         </div>
       )
     }
@@ -53,6 +60,30 @@ const cases = siteConfig.cases
   </div>
 </section>
 
+<script>
+  document.querySelectorAll<HTMLElement>("[data-cases-carousel]").forEach((carousel) => {
+    const track = carousel.querySelector<HTMLElement>(".cases__track");
+    const prev = carousel.querySelector<HTMLButtonElement>("[data-cases-prev]");
+    const next = carousel.querySelector<HTMLButtonElement>("[data-cases-next]");
+    if (!track || !prev || !next) return;
+
+    const step = () => {
+      const card = track.querySelector<HTMLElement>(".cases__card");
+      return card ? card.offsetWidth + 20 : track.clientWidth * 0.8;
+    };
+    const update = () => {
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    };
+
+    prev.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
+    next.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  });
+</script>
+
 <style>
   .testimonials__title {
     font-size: clamp(1.6rem, 3vw, 2.25rem);
@@ -64,25 +95,23 @@ const cases = siteConfig.cases
   }
 
   .cases {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
+    margin-bottom: 56px;
+  }
+
+  .cases__track {
+    display: flex;
     gap: 20px;
-    margin-bottom: 48px;
-  }
-
-  @media (min-width: 640px) {
-    .cases {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (min-width: 1000px) {
-    .cases {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 4px;
+    padding: 4px 4px 24px;
+    scrollbar-width: thin;
+    outline: none;
   }
 
   .cases__card {
+    flex: 0 0 min(320px, 84vw);
+    scroll-snap-align: start;
     border-radius: var(--radius-lg);
     overflow: hidden;
     display: flex;
@@ -91,9 +120,17 @@ const cases = siteConfig.cases
 
   .cases__video {
     position: relative;
-    aspect-ratio: 9 / 16;
-    max-height: 560px;
     width: 100%;
+    background: var(--color-bg-soft);
+  }
+
+  .cases__video--instagram {
+    height: 540px;
+  }
+
+  .cases__video--youtube,
+  .cases__video--file {
+    aspect-ratio: 9 / 16;
     background: var(--color-blue-deep);
   }
 
@@ -107,7 +144,7 @@ const cases = siteConfig.cases
   }
 
   .cases__body {
-    padding: 20px 24px 24px;
+    padding: 20px 22px 24px;
   }
 
   .cases__title {
@@ -118,7 +155,37 @@ const cases = siteConfig.cases
 
   .cases__description {
     color: var(--color-text-muted);
-    font-size: 0.92rem;
+    font-size: 0.9rem;
+  }
+
+  .cases__nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .cases__arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(3, 42, 242, 0.22);
+    background: #ffffff;
+    color: var(--color-blue-electric);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .cases__arrow:hover {
+    background: rgba(3, 42, 242, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .cases__arrow:disabled {
+    opacity: 0.35;
+    cursor: default;
+    transform: none;
   }
 
   .testimonials__collage {
