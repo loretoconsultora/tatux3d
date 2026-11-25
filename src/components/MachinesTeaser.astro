@@ -1,58 +1,56 @@
 ---
 import { siteConfig } from "../data/site";
+import MachineCards from "./MachineCards.astro";
 
 const { machines } = siteConfig;
 ---
 
-<section id="maquinas" class="section machines-teaser aura-mint">
+<section id="maquinas" class="section machines-home aura-mint">
   <div class="container">
-  <div class="machines-teaser__inner card-soft">
-    <div>
-      <p class="eyebrow machines-teaser__eyebrow">Venta de máquinas</p>
-      <h2 class="machines-teaser__title">{machines.teaserTitle}</h2>
-      <p class="machines-teaser__text">{machines.teaserText}</p>
+    <div class="machines-home__header">
+      <p class="eyebrow machines-home__eyebrow">Venta de impresoras</p>
+      <h2 class="machines-home__title">{machines.teaserTitle}</h2>
+      <p class="machines-home__text">{machines.teaserText}</p>
     </div>
-    <a href="/maquinas" class="btn btn-solid machines-teaser__cta">Ver máquinas</a>
-  </div>
+
+    <MachineCards />
+
+    <p class="machines-home__more">
+      <a href="/maquinas">Ver capacitación y soporte →</a>
+    </p>
   </div>
 </section>
 
 <style>
-  .machines-teaser__inner {
-    border-radius: var(--radius-xl);
-    padding: 32px 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
+  .machines-home__header {
+    max-width: 720px;
+    margin: 0 auto 40px;
+    text-align: center;
   }
 
-  .machines-teaser__eyebrow {
+  .machines-home__eyebrow {
     color: var(--color-blue-electric);
     margin-bottom: 8px;
   }
 
-  .machines-teaser__title {
-    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  .machines-home__title {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
     color: var(--color-blue-deep);
   }
 
-  .machines-teaser__text {
+  .machines-home__text {
     color: var(--color-text-muted);
     margin-top: 12px;
-    max-width: 640px;
   }
 
-  .machines-teaser__cta {
-    flex-shrink: 0;
+  .machines-home__more {
+    text-align: center;
+    margin-top: 32px;
   }
 
-  @media (min-width: 800px) {
-    .machines-teaser__inner {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      padding: 44px 48px;
-    }
+  .machines-home__more a {
+    color: var(--color-blue-electric);
+    font-weight: 700;
+    text-decoration: none;
   }
 </style>

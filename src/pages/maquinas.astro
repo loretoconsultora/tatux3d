@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import BookingModal from "../components/BookingModal.astro";
 import BookingFormCard from "../components/BookingFormCard.astro";
 import WhatsAppFloatingButton from "../components/WhatsAppFloatingButton.astro";
+import MachineCards from "../components/MachineCards.astro";
 import { siteConfig } from "../data/site";
 
 const { machines } = siteConfig;
@@ -30,36 +31,7 @@ const { machines } = siteConfig;
       <div class="container">
         <h2 class="machines-list__title">Modelos</h2>
 
-        {
-          machines.models.length > 0 ? (
-            <div class="machines-list__grid">
-              {machines.models.map((model) => (
-                <article class="card-soft machine-card">
-                  {model.image && (
-                    <div class="machine-card__photo">
-                      <img src={model.image} alt={model.name} loading="lazy" />
-                    </div>
-                  )}
-                  <div class="machine-card__body">
-                    <h3 class="machine-card__name">{model.name}</h3>
-                    <p class="machine-card__price">{model.price}</p>
-                    <p class="machine-card__description">{model.description}</p>
-                    {model.specs.length > 0 && (
-                      <ul class="machine-card__specs">
-                        {model.specs.map((spec) => <li>{spec}</li>)}
-                      </ul>
-                    )}
-                    <a href="#consulta" class="btn btn-outline machine-card__cta">Consultar</a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div class="card-soft machines-list__empty">
-              <p>Estamos preparando el catálogo de modelos. Dejanos tu consulta y te enviamos opciones y precios.</p>
-            </div>
-          )
-        }
+        <MachineCards />
       </div>
     </section>
 
@@ -130,85 +102,6 @@ const { machines } = siteConfig;
   .machines-list__title {
     text-align: center;
     margin-bottom: 32px;
-  }
-
-  .machines-list__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 20px;
-  }
-
-  @media (min-width: 700px) {
-    .machines-list__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (min-width: 1000px) {
-    .machines-list__grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-
-  .machine-card {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .machine-card__photo {
-    aspect-ratio: 4 / 3;
-    background: var(--color-bg-soft);
-  }
-
-  .machine-card__photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .machine-card__body {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1;
-  }
-
-  .machine-card__name {
-    font-size: 1.15rem;
-    color: var(--color-blue-deep);
-  }
-
-  .machine-card__price {
-    font-weight: 700;
-    color: var(--color-blue-electric);
-  }
-
-  .machine-card__description,
-  .machine-card__specs {
-    color: var(--color-text-muted);
-    font-size: 0.92rem;
-  }
-
-  .machine-card__specs {
-    margin: 0;
-    padding-left: 18px;
-  }
-
-  .machine-card__cta {
-    margin-top: auto;
-    align-self: flex-start;
-  }
-
-  .machines-list__empty {
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    text-align: center;
-    color: var(--color-text-muted);
-    max-width: 720px;
-    margin-inline: auto;
   }
 
   .machines-support__grid {

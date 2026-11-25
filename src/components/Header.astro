@@ -1,12 +1,9 @@
 ---
 // Links absolutos ("/#...") para que funcionen también desde /maquinas.
 const links = [
-  { href: "/#industrias", label: "Industrias" },
-  { href: "/#servicios", label: "Servicios" },
   { href: "/#casos", label: "Casos de éxito" },
-  { href: "/#granjas", label: "Granjas" },
-  { href: "/maquinas", label: "Máquinas" },
-  { href: "/#preguntas", label: "Preguntas" },
+  { href: "/#granjas", label: "Pequeñas granjas" },
+  { href: "/#maquinas", label: "Venta de impresoras" },
   { href: "/#contacto", label: "Contacto" },
 ];
 ---
@@ -74,7 +71,9 @@ const links = [
 
   .header__logo {
     display: inline-flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
     flex-shrink: 0;
     text-decoration: none;
   }
@@ -85,20 +84,19 @@ const links = [
     display: block;
   }
 
+  /* Tagline bajo el logo, en el mismo azul de la marca. */
   .header__tagline {
-    display: none;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-    padding-left: 12px;
-    margin-left: 12px;
-    border-left: 1px solid var(--color-border);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    color: var(--color-blue-electric);
     white-space: nowrap;
   }
 
   .header__nav {
     display: none;
-    gap: 20px;
+    gap: 28px;
   }
 
   .header__actions {
@@ -196,11 +194,11 @@ const links = [
 
   @media (min-width: 640px) {
     .header__tagline {
-      display: inline;
+      font-size: 0.7rem;
     }
   }
 
-  @media (min-width: 1100px) {
+  @media (min-width: 960px) {
     .header__nav {
       display: flex;
     }
@@ -211,9 +209,4 @@ const links = [
     }
   }
 
-  @media (min-width: 1100px) and (max-width: 1279px) {
-    .header__tagline {
-      display: none;
-    }
-  }
 </style>

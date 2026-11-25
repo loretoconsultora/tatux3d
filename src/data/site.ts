@@ -18,8 +18,8 @@ export interface MachineModel {
   /** Precio en texto ("USD 1.500", "$ 2.300.000") o "Consultar" */
   price: string;
   description: string;
-  specs: string[];
-  image?: string;
+  /** Foto: subila a /public/maquinas/ y poné "/maquinas/modelo-1.jpg". Vacío = recuadro de espera. */
+  image: string;
 }
 
 export const siteConfig = {
@@ -30,6 +30,8 @@ export const siteConfig = {
     phone: "+54 9 11 3680-1900",
     phoneHref: "tel:+5491136801900",
     whatsapp: "https://wa.link/x815lx",
+    // Mismo número, en formato que permite mensaje predeterminado (?text=).
+    whatsappNumber: "5491136801900",
     instagramHandle: "@tatux3d.ar",
     instagram: "https://www.instagram.com/tatux3d.ar/",
     facebookHandle: "tatux3d.granjadeimpresion3d",
@@ -149,8 +151,14 @@ export const siteConfig = {
     teaserTitle: "¿Querés tu propia producción 3D?",
     teaserText:
       "También vendemos impresoras 3D, con la capacitación y el soporte de quienes producen con ellas todos los días.",
-    // PENDIENTE de Iair: modelos y precios (usar "Consultar" si no se publica).
-    models: [] as MachineModel[],
+    // Botón de cada tarjeta: abre WhatsApp con este mensaje.
+    whatsappMessage: "Hola, he entrado a su página y quiero adquirir una impresora con ustedes.",
+    // PENDIENTE de Iair: reemplazar nombre, foto, descripción y precio de cada modelo.
+    models: [
+      { name: "Modelo 1", image: "", description: "Descripción breve del modelo: volumen de impresión, materiales y para qué tipo de producción conviene.", price: "Consultar" },
+      { name: "Modelo 2", image: "", description: "Descripción breve del modelo: volumen de impresión, materiales y para qué tipo de producción conviene.", price: "Consultar" },
+      { name: "Modelo 3", image: "", description: "Descripción breve del modelo: volumen de impresión, materiales y para qué tipo de producción conviene.", price: "Consultar" },
+    ] as MachineModel[],
     // PENDIENTE de Iair: detalle de capacitación y soporte.
     training: "Te enseñamos a poner en marcha la máquina y a producir con ella. (Detalle pendiente de confirmar.)",
     support: "Te acompañamos después de la compra con soporte técnico. (Detalle pendiente de confirmar.)",
